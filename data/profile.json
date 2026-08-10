@@ -1,0 +1,95 @@
+{
+  "name": "Emilio Herrera Lozano",
+  "alias": "Emilio Blacksmith",
+  "role": "Product Engineer",
+  "location": "Puebla, Mexico",
+  "image": "/images/profile.webp",
+  "tagline": "Herrera means blacksmith in Spanish. I took it literally.",
+  "bio": [
+    "Herrera means blacksmith in Spanish — and I took it literally. I'm a Product Engineer forging full-scale software end-to-end: interfaces, serverless backends, and AI features built on LLM workflows and agentic systems.",
+    "By day I'm a Software Engineer at Finsphera, designing and shipping end-to-end product features. By night I run Blacksmith Softworks, my studio for web apps, tools, and videogames. Rooted in Game & Interactive Media Design, I sweat the details people feel but don't see."
+  ],
+  "experience": [
+    {
+      "role": "Software Engineer — Frontend",
+      "company": "Finsphera",
+      "period": "Aug 2024 — Present",
+      "location": "Remote",
+      "points": [
+        "Designed and built end-to-end product features, spanning UI/UX design, serverless backend architecture, and infrastructure.",
+        "Developed AI-driven features using LLM workflows and agentic systems to automate complex application tasks.",
+        "Built responsive, high-performance web interfaces using Next.js, React, and Tailwind CSS."
+      ]
+    },
+    {
+      "role": "Founder & Product Engineer",
+      "company": "Blacksmith Softworks",
+      "period": "Mar 2021 — Present",
+      "location": "Mexico · Remote",
+      "points": [
+        "A software development company focused on making useful and fun experiences, from web apps to videogames."
+      ]
+    },
+    {
+      "role": "Interactive Designer & Project Manager",
+      "company": "Uncomfortably Comfortable",
+      "period": "Feb 2022 — Nov 2022",
+      "location": "United States · Remote",
+      "points": [
+        "Developed the community website (Wix + design in Figma).",
+        "Designed social media posts to drive brand awareness and growth."
+      ]
+    }
+  ],
+  "education": {
+    "degree": "Bachelor's, Game and Interactive Media Design",
+    "school": "DASC Instituto Tecnológico Universitario",
+    "period": "2017 — 2021",
+    "gpa": "3.7 GPA"
+  },
+  "languages": {
+    "English": "Full professional proficiency",
+    "Spanish": "Native or bilingual proficiency"
+  },
+  "skills": {
+    "Front End": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "styled-components",
+      "Redux",
+      "Vue.js",
+      "Bootstrap"
+    ],
+    "Back End": [
+      "Node.js",
+      "Express",
+      "MERN",
+      "REST APIs",
+      "MongoDB",
+      "PostgreSQL",
+      "ASP .NET"
+    ],
+    "Cloud & AI": [
+      "Serverless",
+      "AWS",
+      "LLM Workflows",
+      "Agentic Systems",
+      "Rust (learning)"
+    ],
+    "Craft": [
+      "Figma",
+      "Unity / C#",
+      "Blender",
+      "Game Design",
+      "3D Modeling",
+      "Scrum"
+    ]
+  },
+  "links": {
+    "github": "https://github.com/EmilioBlacksmith",
+    "linkedin": "https://www.linkedin.com/in/emilioblacksmith",
+    "npm": "npx emilioblacksmith"
+  }
+}

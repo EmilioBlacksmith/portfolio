@@ -26,12 +26,6 @@ export function Header() {
               </span>
             </a>
           ))}
-          <span
-            aria-hidden="true"
-            className="hidden font-mono text-xs text-faint select-none md:block"
-          >
-            /3D
-          </span>
         </nav>
       </div>
     </header>

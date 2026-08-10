@@ -6,7 +6,7 @@
   --color-bone: #e9eef4;
   --color-ash: #8a94a6;
   --color-faint: #4a5363;
-  --color-steel: #38bdf8;
+  --color-steel: #22d3ee;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-grotesk);
@@ -41,7 +41,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #38bdf8;
+  background: #22d3ee;
 }
 
 @keyframes blink {

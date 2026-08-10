@@ -103,17 +103,17 @@ function Rig({ children }: { children: ReactNode }) {
   const ref = useRef<THREE.Group>(null);
 
   useFrame((state, delta) => {
-    const { pointer, clock } = state;
+    const { clock } = state;
     if (!ref.current) return;
     ref.current.rotation.y = THREE.MathUtils.damp(
       ref.current.rotation.y,
-      clock.elapsedTime * 0.5 + pointer.x * 0.3,
+      clock.elapsedTime * 0.5,
       2,
       delta
     );
     ref.current.rotation.x = THREE.MathUtils.damp(
       ref.current.rotation.x,
-      Math.sin(clock.elapsedTime * 0.4) * 0.15 - pointer.y * 0.15,
+      Math.sin(clock.elapsedTime * 0.4) * 0.15,
       2,
       delta
     );
@@ -160,7 +160,7 @@ export default function Scene() {
           intensity={24}
           distance={0}
           decay={2}
-          color="#38bdf8"
+          color="#22d3ee"
         />
         <pointLight
           position={[4, 6, -6]}
@@ -208,7 +208,7 @@ export default function Scene() {
             rotation-y={Math.PI / 2}
             position={[-5, 1, -1]}
             scale={[20, 1, 1]}
-            color="#38bdf8"
+            color="#22d3ee"
           />
           <Lightformer
             intensity={2.8}
@@ -222,7 +222,7 @@ export default function Scene() {
             rotation-x={Math.PI / 2}
             position={[0, -5, 0]}
             scale={[10, 2, 10]}
-            color="#38bdf8"
+            color="#22d3ee"
           />
           <Lightformer
             intensity={2.2}

@@ -1,0 +1,232 @@
+[
+    {
+        "title": "Daydream — Historias Compartidas",
+        "year": 2026,
+        "isFeatured": true,
+        "description": "The social media of the screen junkies — log movies & TV, make friends, and get AI-tuned recommendations.",
+        "projectImgs": [
+            "/images/previews/daydream/1.webp",
+            "/images/previews/daydream/2.webp",
+            "/images/previews/daydream/3.webp",
+            "/images/previews/daydream/4.webp",
+            "/images/previews/daydream/5.webp"
+        ],
+        "techStack": [
+            "Rust (Axum)",
+            "Next.js",
+            "React Native (Expo)",
+            "TypeScript",
+            "PostgreSQL + SQLx",
+            "Redis",
+            "AWS S3",
+            "Turborepo",
+            "Tailwind",
+            "TanStack Query",
+            "TMDB API",
+            "Gemini AI"
+        ],
+        "role": "Founder & Product Engineer",
+        "overview": "Daydream is the social space for everything you watch. Track movies and TV, share them with friends, and let the platform learn your taste — then get communities, conversations, and recommendations that actually fit you. Web first, mobile next.",
+        "highlights": [
+            "Rust + Axum API — 18 domain modules, WebSockets, Redis, S3",
+            "AI 'vibe' engine — 3x 1536-dim taste vectors updated via EMA",
+            "Personalized feed ranked by cosine similarity",
+            "Bilingual (EN/ES) AI editorial insights",
+            "Web + mobile in one Turborepo (Next.js 16 / Expo)",
+            "OAuth, Patreon, rate limiting, 13 Rust ETL binaries"
+        ],
+        "id": "00000000-0000-4000-8000-000000000000"
+    },
+    {
+        "title": "Movie Landing Page",
+        "year": 2024,
+        "description": "This Movie Landing Page leverages the TMDB API and display the a list of movies and tv shows. Users can browse through the lists and sections, view detailed information about each media and enjoy a smooth and responsive user experience.",
+        "sliderImg": "/images/slider/1.webp",
+        "projectImgs": [
+            "/images/previews/project_2/1.webp",
+            "/images/previews/project_2/2.webp",
+            "/images/previews/project_2/3.webp"
+        ],
+        "techStack": [
+            "REACT",
+            "Tailwind",
+            "Typescript",
+            "React Context API",
+            "TMDB API",
+            "Jest",
+            "Nerd Fonts",
+            "Vite",
+            "Swiper",
+            "Prettier"
+        ],
+        "overview": "This Movie Landing Page leverages the TMDB API and display the a list of movies and tv shows. Users can browse through the lists and sections, view detailed information about each media and enjoy a smooth and responsive user experience.",
+        "challenges": "One of the challenges I faced while developing this website was handling the API calls with the <a href='https://www.themoviedb.org/'>TMDB API</a>, besides the use of State Management with React's Context API to dynamically change the current section being shown with sidebar or when calling each media card.",
+        "role": "Front End Developer",
+        "features": [
+            {
+                "title": "Dynamic Movie and TV Show List",
+                "description": "Fetch and display a slider list of movies and tv shows from the Movie Database API."
+            },
+            {
+                "title": "Detailed View",
+                "description": "Click on a movie to view more detailed information including release date, ratings, and reviews."
+            },
+            {
+                "title": "State Management",
+                "description": "Utilizes Context API for managing application state."
+            },
+            {
+                "title": "API Integration",
+                "description": "Efficient handling of API requests to dynamically load movie data."
+            }
+        ],
+        "id": "792cd741-484b-4e66-b498-afb34ec6d904"
+    },
+    {
+        "title": "The Busy Gamer App",
+        "year": 2024,
+        "description": "The Busy Gamer Web App allows you to track videogames that you want to play, and makes an approximation of how long is going to take you to finish those games, based on your schedule. Powered by How Long To Beat API.",
+        "sliderImg": "/images/slider/2.webp",
+        "projectImgs": [
+            "/images/previews/project_3/1.webp",
+            "/images/previews/project_3/2.webp",
+            "/images/previews/project_3/3.webp"
+        ],
+        "techStack": [
+            "REACT",
+            "Tailwind",
+            "Javascript",
+            "How Long To Beat API by Christian Katzorke",
+            "Node.JS",
+            "Nerd Fonts",
+            "Vite",
+            "Swiper",
+            "Prettier",
+            "Axios"
+        ],
+        "overview": "The reasoning behind this app is that not every gamer can afford to play more than 1 to 2 hours sometimes, you can either need to go to work, or lack a lot of free time. This app is meant for you, the gamers who want to check how long it would take to finish every single Persona Videogame lol.",
+        "challenges": "One of the main challenges was how to handle props within the application, so we can truly track each videogame, and manage everything within the app, from allowing the player to see what games are already being tracked, and managing how we were going to get a result for the user, in this case how to handle the calculations of how long it would take you to finish the games you're tracking in the tracking list.",
+        "role": "Full Stack Developer",
+        "features": [
+            {
+                "title": "Game Tracking",
+                "description": "Keep a list of video games you want to play."
+            },
+            {
+                "title": "Time Estimation",
+                "description": "Calculate how long it will take you to finish your games based on your gaming schedule, either on a weekly or daily basis."
+            },
+            {
+                "title": "How Long To Beat API Integration",
+                "description": "Accurate game completion time data gathered from How Long to Beat."
+            }
+        ],
+        "id": "1432305c-ade9-4b9a-9a45-0668fa3d32f8"
+    },
+    {
+        "title": "Node Terminal Contact Card",
+        "year": 2024,
+        "description": "A terminal-based contact info / business card, that can be called anywhere with NPM(Node Package Manager).",
+        "sliderImg": "/images/slider/3.webp",
+        "projectImgs": [
+            "/images/previews/project_4/1.webp",
+            "/images/previews/project_4/2.webp",
+            "/images/previews/project_4/3.webp"
+        ],
+        "techStack": ["Node.JS", "Typescript", "Inquirer", "Boxen"],
+        "overview": "A small terminal command line interface project so anyone can call your business card with NPX (It allows you to execute binaries from npm packages without having to install them globally on your system), so once you call in your terminal 'npx emilioblacksmith' it will show you all of my respective data.",
+        "challenges": "One of the main challenges of this project was how to handle the NPX command from the node package manager, due to the use of typescript instead of javascript the path forward for handling the npx command was not straightforward. Another challenge was how to handle a main menu (so to speak), so you can call any of my main social media or main links, this was made with the use of inquirer a node dependency.",
+        "role": "Back-end Developer",
+        "features": [
+            {
+                "title": "Called anywhere",
+                "description": "Command can be called with the only requirement of having Node installed on your system."
+            },
+            {
+                "title": "Main Menu",
+                "description": "An interactive Menu that forwards you to the desired links."
+            }
+        ],
+        "id": "f9cd5c07-6f89-41ee-9f19-bbf3a2118800"
+    },
+    {
+        "title": "bioLink",
+        "year": 2023,
+        "description": "A minimalistic responsive website to showcase main social media links or project links, to share to others online. It is based in Linktree and Linkin.bio.",
+        "sliderImg": "/images/slider/4.webp",
+        "projectImgs": [
+            "/images/previews/project_5/1.webp",
+            "/images/previews/project_5/2.webp",
+            "/images/previews/project_5/3.webp"
+        ],
+        "techStack": ["REACT", "CSS3", "Javascript", "FIGMA", "Vite"],
+        "overview": "Creating a minimalistic responsive website to showcase main social media or project links involves balancing simplicity with functionality. The goal is to provide users with an intuitive platform similar to Linktree and Linkin.bio, where they can easily share their key online presence.",
+        "challenges": "One of the primary challenges was ensuring the website's design remains clean and intuitive while still being customizable enough to cater to different users' needs. Besides handling an intuitive responsive mobile design, so it can be displayed anywhere for quality of life reasons.",
+        "role": "Full Stack Developer",
+        "features": [
+            {
+                "title": "Mobile Responsive",
+                "description": "Designed with a mobile-first approach, ensuring a seamless experience on all devices. Whether you're using a smartphone, tablet, or desktop, the layout dynamically adjusts to provide optimal viewing and interaction."
+            },
+            {
+                "title": "Modularity",
+                "description": "The website is built with modularity in mind, allowing you to customize and expand it to suit your needs. Each component can be independently modified or replaced, making it easy to update or add new features without disrupting the overall structure."
+            }
+        ],
+        "id": "c206ea43-d046-4f40-b0f3-9fe0045df7fa"
+    },
+    {
+        "title": "Mother Frogger",
+        "year": 2023,
+        "description": "FROGGER but with Ragdoll Physics, made with Unity.",
+        "projectImgs": [
+            "/images/previews/project_6/1.webp",
+            "/images/previews/project_6/2.webp",
+            "/images/previews/project_6/3.webp"
+        ],
+        "techStack": ["Unity", "C#", "Blender", "Adobe Suite", "GIT"],
+        "overview": "A simple infinite game inspired by FROGGER, incorporating these modern elements. While the game is loosely based on the original, it introduces significant changes in gameplay to take advantage of the current physics-based movement of the frog and the overall environment.",
+        "challenges": "The project's primary challenge involved integrating realistic, physics-based movement akin to games like Humans Fall Flat and Gang Beasts for the frog character, ensuring both realism and playability. Developing a secure global scoreboard, a dynamic physics-based traffic system influenced by random obstacles, and an intuitive grab and put system for environmental interactions added further complexity to the project.",
+        "role": "Game Developer",
+        "features": [
+            {
+                "title": "Physics-Based Movement",
+                "description": "Realistic character dynamics with physics-based movement. Every joint of the character is governed by physics, adding an extra layer of challenge."
+            },
+            {
+                "title": "Global Scoreboard",
+                "description": "The scoreboard can store up to 10 top scores, motivating players to strive for a spot in the top 10."
+            },
+            {
+                "title": "Traffic System",
+                "description": "A dynamic environment with our physics-based traffic system. Traffic flow can be disrupted by placing random obstacles, adding a strategic element to your gameplay."
+            }
+        ],
+        "id": "cb4b2ef1-a6fc-4b20-918d-57d581ce43e8"
+    },
+    {
+        "title": "Emilio Blacksmith",
+        "year": 2021,
+        "description": "The brand behind the forge — a YouTube channel and online persona for videogames, software, and making code fun to watch.",
+        "projectImgs": [
+            "/images/previews/project_8/1.webp",
+            "/images/previews/project_8/2.webp",
+            "/images/previews/project_8/3.webp"
+        ],
+        "techStack": [
+            "Adobe Suite",
+            "Notion",
+            "Unity",
+            "REACT",
+            "MERN",
+            "UX/UI",
+            "Node.JS",
+            "GIT",
+            "Blender"
+        ],
+        "overview": "I blend my passion for software development with creative insights from interactive design. Based in Mexico, I specialize in Full Stack Web Development, crafting applications and video games that deliver exceptional user experiences. With a foundation in UX/UI, I've been immersed in coding since 2017-2018, constantly exploring new ways to make apps feel intuitive and enjoyable. Join me on YouTube, where I share my journey from game development to software creation.",
+        "challenges": "One of the main challenges of this personal brand has been finding the identity and how to make myself shine within the big dev community out there. The focus of my youtube channel and social media has been game development, but recently exploring other areas within software development.",
+        "role": "Founder and Full Stack Developer",
+        "id": "52210af8-2f31-4ba7-8e52-e022c4168311"
+    }
+]
