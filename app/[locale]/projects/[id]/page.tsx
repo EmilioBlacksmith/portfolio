@@ -1,33 +1,45 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Logo } from "../../components/logo";
-import projects from "@/data/projects.json";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+import { locales } from "@/i18n/navigation";
+import { Logo } from "@/app/components/logo";
+import projectsEn from "@/data/en/projects.json";
+import projectsEs from "@/data/es/projects.json";
+import type { Project } from "@/data/types";
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ id: project.id }));
+  return locales.flatMap((locale) =>
+    projectsEn.map((project) => ({ locale, id: project.id }))
+  );
 }
 
 export async function generateMetadata({
   params,
-}: PageProps<"/projects/[id]">) {
-  const { id } = await params;
-  const project = projects.find((p) => p.id === id);
+}: PageProps<"/[locale]/projects/[id]">) {
+  const { locale, id } = await params;
+  const project = (locale === "es" ? projectsEs : projectsEn).find(
+    (p) => p.id === id
+  );
+  const t = await getTranslations({ locale, namespace: "projects" });
+
   return {
-    title: project
-      ? `${project.title} — Emilio Blacksmith`
-      : "Project — Emilio Blacksmith",
+    title: project ? `${project.title} ${t("titleSuffix")}` : t("titleSuffix"),
     description: project?.description,
   };
 }
 
 export default async function ProjectPage({
   params,
-}: PageProps<"/projects/[id]">) {
-  const { id } = await params;
+}: PageProps<"/[locale]/projects/[id]">) {
+  const { locale, id } = await params;
+  setRequestLocale(locale);
+
+  const projects: Project[] = locale === "es" ? projectsEs : projectsEn;
   const project = projects.find((p) => p.id === id);
   if (!project) notFound();
 
+  const t = await getTranslations("projects");
   const images = project.projectImgs ?? [];
 
   return (
@@ -38,14 +50,14 @@ export default async function ProjectPage({
           href="/#work"
           className="font-mono text-[11px] tracking-[0.15em] text-ash uppercase transition-colors hover:text-bone"
         >
-          ← forged works
+          {t("back")}
         </Link>
       </div>
 
       <div className="mx-auto max-w-[1200px] px-5 py-12 sm:px-8">
         <header className="pb-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
-            {project.isFeatured ? "latest project" : "project"} /{" "}
+            {project.isFeatured ? t("latestProject") : t("project")} /{" "}
             <span className="text-steel">{project.year}</span> / {project.role}
           </p>
           <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-bone sm:text-6xl">
@@ -88,7 +100,7 @@ export default async function ProjectPage({
             {project.overview && (
               <section>
                 <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-                  overview
+                  {t("overview")}
                 </h2>
                 <p className="mt-3 text-base leading-relaxed text-ash">
                   {project.overview}
@@ -99,7 +111,7 @@ export default async function ProjectPage({
             {project.highlights && (
               <section>
                 <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-                  highlights
+                  {t("highlights")}
                 </h2>
                 <ul className="mt-4 space-y-3">
                   {project.highlights.map((highlight) => (
@@ -117,7 +129,7 @@ export default async function ProjectPage({
             {project.features && (
               <section>
                 <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-                  features
+                  {t("features")}
                 </h2>
                 <div className="mt-4 space-y-6">
                   {project.features.map((feature) => (
@@ -137,7 +149,7 @@ export default async function ProjectPage({
             {project.challenges && (
               <section className="border border-white/10 bg-panel/50 p-6">
                 <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-                  challenges
+                  {t("challenges")}
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-ash">
                   {project.challenges}
@@ -148,7 +160,7 @@ export default async function ProjectPage({
 
           <aside>
             <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-              tech stack
+              {t("techStack")}
             </h2>
             <div className="mt-4 flex flex-wrap gap-2">
               {project.techStack.map((tech) => (
@@ -163,7 +175,7 @@ export default async function ProjectPage({
 
             <div className="mt-8 border border-white/10 bg-panel/50 p-5">
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-                more from the forge
+                {t("moreFromTheForge")}
               </p>
               <ul className="mt-3 space-y-2">
                 {projects

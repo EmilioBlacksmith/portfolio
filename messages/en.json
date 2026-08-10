@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "title": "Emilio Blacksmith Herrera",
+    "description": "Emilio Herrera, aka BLACKSMITH. Product engineer across modern frontends, high-performance backends, and cloud infrastructure — recommendation systems, LLM agentic workflows, and edge deployments, shipped from scratch."
+  },
+  "nav": {
+    "work": "WORK",
+    "about": "ABOUT",
+    "contact": "CONTACT"
+  },
+  "hero": {
+    "bio": "Product Engineer forging full-scale software end-to-end — interfaces, serverless backends, and AI features built on LLM workflows and agentic systems. Currently building at Finsphera and founding Blacksmith Softworks from Puebla, Mexico.",
+    "helloCard": "Hello! I'm Emilio — the Blacksmith. Product Engineer & indie app developer based in <mexico>Mexico</mexico>, currently building AI-driven features <finsphera>@ Finsphera</finsphera>."
+  },
+  "sections": {
+    "work": "FORGED WORKS",
+    "about": "THE SMITH"
+  },
+  "about": {
+    "experience": "experience",
+    "education": "education",
+    "languages": "languages",
+    "arsenal": "arsenal"
+  },
+  "contact": {
+    "label": "contact",
+    "github": "github",
+    "linkedin": "linkedin",
+    "footer": "c emilio blacksmith herrera / mmxxvi"
+  },
+  "projects": {
+    "latest": "latest",
+    "latestProject": "latest project",
+    "project": "project",
+    "back": "← forged works",
+    "overview": "overview",
+    "highlights": "highlights",
+    "features": "features",
+    "challenges": "challenges",
+    "techStack": "tech stack",
+    "moreFromTheForge": "more from the forge",
+    "titleSuffix": "— Emilio Blacksmith"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "name": "Emilio Herrera Lozano",
+  "alias": "Emilio Blacksmith",
+  "role": "Product Engineer",
+  "location": "Puebla, México",
+  "image": "/images/profile.webp",
+  "tagline": "Blacksmith significa Herrera en español. Me lo tomé al pie de la letra.",
+  "bio": [
+    "Blacksmith significa Herrera en español — y me lo tomé al pie de la letra. Soy Product Engineer que forja software completo de punta a punta: interfaces, backends serverless y funciones de IA construidas con flujos de LLM y sistemas agénticos.",
+    "De día soy Software Engineer en Finsphera, diseñando y entregando funciones de producto completas. De noche dirijo Blacksmith Softworks, mi estudio de apps web, herramientas y videojuegos. Con raíces en Game & Interactive Media Design, cuido los detalles que la gente siente pero no ve."
+  ],
+  "experience": [
+    {
+      "role": "Software Engineer — Frontend",
+      "company": "Finsphera",
+      "period": "Ago 2024 — Presente",
+      "location": "Remoto",
+      "points": [
+        "Diseñé y construí funciones de producto de punta a punta, abarcando diseño de UI/UX, arquitectura backend serverless e infraestructura.",
+        "Desarrollé funciones impulsadas por IA usando flujos de LLM y sistemas agénticos para automatizar tareas complejas de la aplicación.",
+        "Construí interfaces web responsivas y de alto rendimiento con Next.js, React y Tailwind CSS."
+      ]
+    },
+    {
+      "role": "Fundador y Product Engineer",
+      "company": "Blacksmith Softworks",
+      "period": "Mar 2021 — Presente",
+      "location": "México · Remoto",
+      "points": [
+        "Una empresa de desarrollo de software enfocada en crear experiencias útiles y divertidas, de apps web a videojuegos."
+      ]
+    },
+    {
+      "role": "Diseñador Interactivo y Project Manager",
+      "company": "Uncomfortably Comfortable",
+      "period": "Feb 2022 — Nov 2022",
+      "location": "Estados Unidos · Remoto",
+      "points": [
+        "Desarrollé el sitio web de la comunidad (Wix + diseño en Figma).",
+        "Diseñé publicaciones para redes sociales para impulsar el conocimiento y el crecimiento de la marca."
+      ]
+    }
+  ],
+  "education": {
+    "degree": "Licenciatura en Diseño de Juegos y Medios Interactivos",
+    "school": "DASC Instituto Tecnológico Universitario",
+    "period": "2017 — 2021",
+    "gpa": "3.7 GPA"
+  },
+  "languages": {
+    "English": "Competencia profesional completa",
+    "Spanish": "Nativo o bilingüe"
+  },
+  "skills": {
+    "Front End": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "styled-components",
+      "Redux",
+      "Vue.js",
+      "Bootstrap"
+    ],
+    "Back End": [
+      "Node.js",
+      "Express",
+      "MERN",
+      "REST APIs",
+      "MongoDB",
+      "PostgreSQL",
+      "ASP .NET"
+    ],
+    "Cloud & AI": [
+      "Serverless",
+      "AWS",
+      "LLM Workflows",
+      "Agentic Systems",
+      "Rust (learning)"
+    ],
+    "Craft": [
+      "Figma",
+      "Unity / C#",
+      "Blender",
+      "Game Design",
+      "Modelado 3D",
+      "Scrum"
+    ]
+  },
+  "links": {
+    "github": "https://github.com/EmilioBlacksmith",
+    "linkedin": "https://www.linkedin.com/in/emilioblacksmith",
+    "npm": "npx emilioblacksmith"
+  }
+}

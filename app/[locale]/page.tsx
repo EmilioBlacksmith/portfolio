@@ -1,8 +1,13 @@
 import Image from "next/image";
-import { Header } from "./components/header";
-import { Hero } from "./components/hero";
-import projects from "@/data/projects.json";
-import profile from "@/data/profile.json";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Header } from "@/app/components/header";
+import { Hero } from "@/app/components/hero";
+import { Link } from "@/i18n/navigation";
+import projectsEn from "@/data/en/projects.json";
+import projectsEs from "@/data/es/projects.json";
+import profileEn from "@/data/en/profile.json";
+import profileEs from "@/data/es/profile.json";
+import type { Profile, Project } from "@/data/types";
 
 function SectionHeading({
   index,
@@ -122,15 +127,19 @@ function AsciiArt({
 function WorkCard({
   project,
   index,
+  latestLabel,
 }: {
-  project: (typeof projects)[number];
+  project: Project;
   index: number;
+  latestLabel: string;
 }) {
   const cover = project.projectImgs?.[0];
-  const tag = project.isFeatured ? "latest" : `item_${String(index + 1).padStart(2, "0")}`;
+  const tag = project.isFeatured
+    ? latestLabel
+    : `item_${String(index + 1).padStart(2, "0")}`;
 
   return (
-    <a
+    <Link
       href={`/projects/${project.id}`}
       className="group relative flex flex-col overflow-hidden bg-panel transition-colors duration-300 hover:bg-white/[0.04]"
     >
@@ -182,27 +191,38 @@ function WorkCard({
           ))}
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
-function Work() {
+async function Work({ projects }: { projects: Project[] }) {
+  const t = await getTranslations("sections");
+  const projectsT = await getTranslations("projects");
+
   return (
     <section id="work" className="mx-auto max-w-[1600px] px-5 py-28 sm:px-8">
-      <SectionHeading index="01" label="FORGED WORKS" art={ART_WORK} />
+      <SectionHeading index="01" label={t("work")} art={ART_WORK} />
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => (
-          <WorkCard key={project.id} project={project} index={i} />
+          <WorkCard
+            key={project.id}
+            project={project}
+            index={i}
+            latestLabel={projectsT("latest")}
+          />
         ))}
       </div>
     </section>
   );
 }
 
-function About() {
+async function About({ profile }: { profile: Profile }) {
+  const t = await getTranslations("about");
+  const sectionsT = await getTranslations("sections");
+
   return (
     <section id="about" className="mx-auto max-w-[1600px] px-5 py-28 sm:px-8">
-      <SectionHeading index="02" label="THE SMITH" />
+      <SectionHeading index="02" label={sectionsT("about")} />
 
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
         <div className="space-y-6 text-base leading-relaxed text-ash">
@@ -212,7 +232,7 @@ function About() {
 
           <div className="pt-2">
             <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-              experience
+              {t("experience")}
             </p>
             <div className="space-y-6">
               {profile.experience.map((job) => (
@@ -245,27 +265,27 @@ function About() {
         </div>
 
         <div className="space-y-6">
-        <div className="flex flex-col items-center pt-2">
-          <div className="relative aspect-square w-56 overflow-hidden rounded-full border-4 border-panel shadow-[0_0_0_1px_rgba(255,255,255,0.12)] sm:w-64">
-            <Image
-              src={profile.image}
-              alt={profile.name}
-              fill
-              sizes="(max-width: 1024px) 16rem, 16rem"
-              className="object-cover grayscale transition-all duration-500 hover:scale-105 hover:grayscale-0"
-            />
+          <div className="flex flex-col items-center pt-2">
+            <div className="relative aspect-square w-56 overflow-hidden rounded-full border-4 border-panel shadow-[0_0_0_1px_rgba(255,255,255,0.12)] sm:w-64">
+              <Image
+                src={profile.image}
+                alt={profile.name}
+                fill
+                sizes="(max-width: 1024px) 16rem, 16rem"
+                className="object-cover grayscale transition-all duration-500 hover:scale-105 hover:grayscale-0"
+              />
+            </div>
+            <p className="mt-5 font-display text-xl font-bold text-bone">
+              {profile.alias}
+            </p>
+            <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ash">
+              {profile.location}
+            </p>
           </div>
-          <p className="mt-5 font-display text-xl font-bold text-bone">
-            {profile.alias}
-          </p>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ash">
-            {profile.location}
-          </p>
-        </div>
 
           <div className="border border-white/10 bg-panel/50 p-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-              education
+              {t("education")}
             </p>
             <p className="mt-2 text-sm font-semibold text-bone">
               {profile.education.degree}
@@ -280,7 +300,7 @@ function About() {
 
           <div className="border border-white/10 bg-panel/50 p-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-              languages
+              {t("languages")}
             </p>
             <ul className="mt-3 space-y-2">
               {Object.entries(profile.languages).map(([language, level]) => (
@@ -296,7 +316,7 @@ function About() {
 
       <div className="mt-16">
         <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
-          arsenal
+          {t("arsenal")}
         </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {Object.entries(profile.skills).map(([group, items]) => (
@@ -323,13 +343,15 @@ function About() {
   );
 }
 
-function Contact() {
+async function Contact({ profile }: { profile: Profile }) {
+  const t = await getTranslations("contact");
+
   return (
     <section id="contact" className="mt-4 bg-panel">
       <div className="mx-auto max-w-[1600px] px-5 py-24 text-center sm:px-8">
         <AsciiArt seed="contact" art={ART_FACE} className="mx-auto mb-6" />
         <p className="font-mono text-xs tracking-[0.25em] text-faint uppercase">
-          [03] contact
+          [03] {t("label")}
         </p>
         <a
           href="mailto:hello@emilioblacksmith.dev"
@@ -345,7 +367,8 @@ function Contact() {
             rel="noopener noreferrer"
             className="group flex items-center gap-2 border border-white/10 px-5 py-2.5 font-mono text-xs tracking-[0.15em] text-ash uppercase transition-colors hover:border-steel/50 hover:text-bone"
           >
-            github<span className="text-steel transition-transform duration-300 group-hover:translate-x-0.5">&gt;</span>
+            {t("github")}
+            <span className="text-steel transition-transform duration-300 group-hover:translate-x-0.5">&gt;</span>
           </a>
           <a
             href={profile.links.linkedin}
@@ -353,7 +376,8 @@ function Contact() {
             rel="noopener noreferrer"
             className="group flex items-center gap-2 border border-white/10 px-5 py-2.5 font-mono text-xs tracking-[0.15em] text-ash uppercase transition-colors hover:border-steel/50 hover:text-bone"
           >
-            linkedin<span className="text-steel transition-transform duration-300 group-hover:translate-x-0.5">&gt;</span>
+            {t("linkedin")}
+            <span className="text-steel transition-transform duration-300 group-hover:translate-x-0.5">&gt;</span>
           </a>
           <span className="flex items-center gap-2 border border-white/10 px-5 py-2.5 font-mono text-xs tracking-[0.15em] text-ash">
             <span className="text-steel">$</span> {profile.links.npm}
@@ -361,22 +385,28 @@ function Contact() {
         </div>
 
         <p className="mt-12 font-mono text-[10px] tracking-[0.2em] text-faint uppercase">
-          c emilio blacksmith herrera / mmxxvi
+          {t("footer")}
         </p>
       </div>
     </section>
   );
 }
 
-export default function Home() {
+export default async function Home({ params }: PageProps<"/[locale]">) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const projects: Project[] = locale === "es" ? projectsEs : projectsEn;
+  const profile: Profile = locale === "es" ? profileEs : profileEn;
+
   return (
     <>
       <Header />
       <main>
         <Hero />
-        <Work />
-        <About />
-        <Contact />
+        <Work projects={projects} />
+        <About profile={profile} />
+        <Contact profile={profile} />
       </main>
     </>
   );

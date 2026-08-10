@@ -1,8 +1,16 @@
 "use client";
 
-import { Component, Suspense, useLayoutEffect, useRef, type ReactNode } from "react";
+import {
+  Component,
+  Suspense,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import * as THREE from "three";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import {
   ContactShadows,
   Environment,
@@ -85,13 +93,20 @@ function Placeholder() {
 }
 
 function IsoCamera() {
-  const size = useThree((s) => s.size);
+  const [vh, setVh] = useState<number | null>(null);
+
+  useEffect(() => {
+    const update = () => setVh(window.innerHeight);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   return (
     <OrthographicCamera
       makeDefault
       position={[4.6, 3.1, 4.6]}
-      zoom={Math.max(1, size.height / 8)}
+      zoom={Math.max(1, (vh ?? 800) / 8)}
       near={0.1}
       far={100}
       onUpdate={(self) => self.lookAt(0, 0, 0)}

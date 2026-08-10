@@ -1,10 +1,13 @@
+import { getTranslations } from "next-intl/server";
 import { SceneLoader } from "./scene-loader";
 
-export function Hero() {
+export async function Hero() {
+  const t = await getTranslations("hero");
+
   return (
     <section id="top" className="relative min-h-svh overflow-hidden">
       <div className="mx-auto grid min-h-svh max-w-[1600px] md:grid-cols-2">
-        <div className="relative h-[46svh] md:h-auto">
+        <div className="relative h-[46svh] md:h-svh">
           <SceneLoader />
         </div>
 
@@ -19,10 +22,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-10 max-w-md text-sm leading-relaxed text-ash">
-            Product Engineer forging full-scale software end-to-end —
-            interfaces, serverless backends, and AI features built on LLM
-            workflows and agentic systems. Currently building at Finsphera and
-            founding Blacksmith Softworks from Puebla, Mexico.
+            {t("bio")}
           </p>
 
           <div className="mt-10 inline-flex max-w-md items-start gap-3 border border-white/10 bg-panel/70 p-4">
@@ -30,10 +30,12 @@ export function Hero() {
               &gt;
             </span>
             <p className="font-mono text-xs leading-5 text-ash">
-              <span className="text-bone">Hello!</span> I&apos;m Emilio — the
-              Blacksmith. Product Engineer &amp; indie app developer based in{" "}
-              <span className="text-steel">Mexico</span>, currently building
-              AI-driven features <span className="text-steel">@ Finsphera</span>.
+              {t.rich("helloCard", {
+                mexico: (chunk) => <span className="text-steel">{chunk}</span>,
+                finsphera: (chunk) => (
+                  <span className="text-steel">{chunk}</span>
+                ),
+              })}
             </p>
           </div>
         </div>
