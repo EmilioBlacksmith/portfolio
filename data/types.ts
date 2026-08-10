@@ -17,10 +17,8 @@ export type Project = {
 export type Profile = {
   name: string;
   alias: string;
-  role: string;
   location: string;
   image: string;
-  tagline: string;
   bio: string[];
   experience: {
     role: string;

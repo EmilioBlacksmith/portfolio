@@ -4,13 +4,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { locales } from "@/i18n/navigation";
 import { Logo } from "@/app/components/logo";
-import projectsEn from "@/data/en/projects.json";
-import projectsEs from "@/data/es/projects.json";
+import { getProjects } from "@/data";
 import type { Project } from "@/data/types";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
-    projectsEn.map((project) => ({ locale, id: project.id }))
+    getProjects(locale).map((project) => ({ locale, id: project.id }))
   );
 }
 
@@ -18,13 +17,11 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]/projects/[id]">) {
   const { locale, id } = await params;
-  const project = (locale === "es" ? projectsEs : projectsEn).find(
-    (p) => p.id === id
-  );
+  const project = getProjects(locale).find((p) => p.id === id);
   const t = await getTranslations({ locale, namespace: "projects" });
 
   return {
-    title: project ? `${project.title} ${t("titleSuffix")}` : t("titleSuffix"),
+    title: project ? project.title : t("titleSuffix"),
     description: project?.description,
   };
 }
@@ -35,7 +32,7 @@ export default async function ProjectPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  const projects: Project[] = locale === "es" ? projectsEs : projectsEn;
+  const projects: Project[] = getProjects(locale);
   const project = projects.find((p) => p.id === id);
   if (!project) notFound();
 

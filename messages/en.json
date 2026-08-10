@@ -11,7 +11,9 @@
   },
   "hero": {
     "bio": "Product Engineer forging full-scale software end-to-end — interfaces, serverless backends, and AI features built on LLM workflows and agentic systems. Currently building at Finsphera and founding Blacksmith Softworks from Puebla, Mexico.",
-    "helloCard": "Hello! I'm Emilio — the Blacksmith. Product Engineer & indie app developer based in <mexico>Mexico</mexico>, currently building AI-driven features <finsphera>@ Finsphera</finsphera>."
+    "helloCard": "Hello! I'm Emilio — the Blacksmith. Product Engineer & indie app developer based in <mexico>Mexico</mexico>, currently building AI-driven features <finsphera>@ Finsphera</finsphera>.",
+    "loadingModel": "loading model",
+    "sceneNote": "The 3D model is one of my 3D projects."
   },
   "sections": {
     "work": "FORGED WORKS",
@@ -41,5 +43,11 @@
     "moreFromTheForge": "more from the forge",
     "titleSuffix": "— Emilio Blacksmith",
     "view": "view project"
+  },
+  "notFound": {
+    "meta": "lost in the forge",
+    "title": "LOST IN THE FORGE",
+    "body": "This page was consumed by the fire. It never made it past the anvil.",
+    "cta": "return home"
   }
 }

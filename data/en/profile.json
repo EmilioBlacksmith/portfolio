@@ -1,10 +1,8 @@
 {
   "name": "Emilio Herrera Lozano",
   "alias": "Emilio Blacksmith",
-  "role": "Product Engineer",
   "location": "Puebla, Mexico",
   "image": "/images/profile.webp",
-  "tagline": "Herrera means blacksmith in Spanish. I took it literally.",
   "bio": [
     "Herrera means blacksmith in Spanish — and I took it literally. I'm a Product Engineer forging full-scale software end-to-end: interfaces, serverless backends, and AI features built on LLM workflows and agentic systems.",
     "By day I'm a Software Engineer at Finsphera, designing and shipping end-to-end product features. By night I run Blacksmith Softworks, my studio for web apps, tools, and videogames. Rooted in Game & Interactive Media Design, I sweat the details people feel but don't see."

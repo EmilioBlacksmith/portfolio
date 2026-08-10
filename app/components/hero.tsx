@@ -8,7 +8,7 @@ export async function Hero() {
     <section id="top" className="relative min-h-svh scroll-mt-16 overflow-hidden">
       <div className="mx-auto grid min-h-svh max-w-[1600px] md:grid-cols-2">
         <div className="relative h-[46svh] md:h-svh">
-          <SceneLoader />
+          <SceneLoader label={t("loadingModel")} />
         </div>
 
         <div className="relative flex flex-col justify-center px-5 py-14 sm:px-8 md:pl-10 lg:pl-16">
@@ -33,9 +33,19 @@ export async function Hero() {
               {t.rich("helloCard", {
                 mexico: (chunk) => <span className="text-steel">{chunk}</span>,
                 finsphera: (chunk) => (
-                  <span className="text-steel">{chunk}</span>
+                  <a
+                    href="https://www.finsphera.ai/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-steel underline decoration-steel/30 underline-offset-2 transition-colors hover:text-bone hover:decoration-steel"
+                  >
+                    {chunk}
+                  </a>
                 ),
               })}
+              <span className="mt-3 block border-t border-white/10 pt-2.5 text-faint">
+                {t("sceneNote")}
+              </span>
             </p>
           </div>
         </div>

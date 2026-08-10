@@ -9,5 +9,7 @@ export default createMiddleware({
 });
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: [
+    "/((?!api|_next|_vercel|icon|opengraph-image|twitter-image|apple-icon|.*\\..*).*)",
+  ],
 };
