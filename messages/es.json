@@ -6,7 +6,8 @@
   "nav": {
     "work": "PROYECTOS",
     "about": "SOBRE MÍ",
-    "contact": "CONTACTO"
+    "contact": "CONTACTO",
+    "language": "Idioma"
   },
   "hero": {
     "bio": "Product engineer que forja software completo de punta a punta — interfaces, backends serverless y funciones de IA construidas con flujos de LLM y sistemas agénticos. Actualmente construyo en Finsphera y fundo Blacksmith Softworks desde Puebla, México.",
@@ -25,8 +26,7 @@
   "contact": {
     "label": "contacto",
     "github": "github",
-    "linkedin": "linkedin",
-    "footer": "c emilio blacksmith herrera / mmxxvi"
+    "linkedin": "linkedin"
   },
   "projects": {
     "latest": "reciente",
@@ -39,6 +39,7 @@
     "challenges": "retos",
     "techStack": "stack tecnológico",
     "moreFromTheForge": "más de la forja",
-    "titleSuffix": "— Emilio Blacksmith"
+    "titleSuffix": "— Emilio Blacksmith",
+    "view": "ver proyecto"
   }
 }

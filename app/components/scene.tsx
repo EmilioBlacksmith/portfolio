@@ -18,6 +18,7 @@ import {
   Lightformer,
   OrthographicCamera,
   useGLTF,
+  useProgress,
 } from "@react-three/drei";
 
 const MODEL_URL = "/models/shield.glb";
@@ -116,8 +117,20 @@ function IsoCamera() {
 
 function Rig({ children }: { children: ReactNode }) {
   const ref = useRef<THREE.Group>(null);
+  const reduceMotion = useRef(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reduceMotion.current = mq.matches;
+    const onChange = (event: MediaQueryListEvent) => {
+      reduceMotion.current = event.matches;
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useFrame((state, delta) => {
+    if (reduceMotion.current) return;
     const { clock } = state;
     if (!ref.current) return;
     ref.current.rotation.y = THREE.MathUtils.damp(
@@ -137,9 +150,30 @@ function Rig({ children }: { children: ReactNode }) {
   return <group ref={ref}>{children}</group>;
 }
 
+function LoadOverlay() {
+  const { active, progress } = useProgress();
+  if (!active) return null;
+
+  return (
+    <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+      <div className="flex flex-col items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
+        <span className="animate-blink text-steel">▮</span>
+        <span>loading model</span>
+        <div className="h-px w-24 bg-white/10">
+          <div
+            className="h-px bg-steel transition-all duration-150"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Scene() {
   return (
     <div className="absolute inset-0">
+      <LoadOverlay />
       <Canvas
         shadows
         dpr={[1, 2]}

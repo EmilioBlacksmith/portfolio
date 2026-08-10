@@ -5,7 +5,7 @@ export async function Hero() {
   const t = await getTranslations("hero");
 
   return (
-    <section id="top" className="relative min-h-svh overflow-hidden">
+    <section id="top" className="relative min-h-svh scroll-mt-16 overflow-hidden">
       <div className="mx-auto grid min-h-svh max-w-[1600px] md:grid-cols-2">
         <div className="relative h-[46svh] md:h-svh">
           <SceneLoader />

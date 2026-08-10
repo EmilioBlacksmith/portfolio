@@ -34,11 +34,28 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
 
+  const title = t("title");
+  const description = t("description");
+
   return {
-    title: t("title"),
-    description: t("description"),
+    title,
+    description,
     alternates: {
       canonical: "/",
+    },
+    openGraph: {
+      type: "website",
+      locale: locale === "es" ? "es_MX" : "en_US",
+      siteName: "Emilio Blacksmith",
+      title,
+      description,
+      images: [{ url: "/images/profile.webp", alt: "Emilio Blacksmith" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/images/profile.webp"],
     },
   };
 }

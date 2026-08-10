@@ -6,7 +6,8 @@
   "nav": {
     "work": "WORK",
     "about": "ABOUT",
-    "contact": "CONTACT"
+    "contact": "CONTACT",
+    "language": "Language"
   },
   "hero": {
     "bio": "Product Engineer forging full-scale software end-to-end — interfaces, serverless backends, and AI features built on LLM workflows and agentic systems. Currently building at Finsphera and founding Blacksmith Softworks from Puebla, Mexico.",
@@ -25,8 +26,7 @@
   "contact": {
     "label": "contact",
     "github": "github",
-    "linkedin": "linkedin",
-    "footer": "c emilio blacksmith herrera / mmxxvi"
+    "linkedin": "linkedin"
   },
   "projects": {
     "latest": "latest",
@@ -39,6 +39,7 @@
     "challenges": "challenges",
     "techStack": "tech stack",
     "moreFromTheForge": "more from the forge",
-    "titleSuffix": "— Emilio Blacksmith"
+    "titleSuffix": "— Emilio Blacksmith",
+    "view": "view project"
   }
 }

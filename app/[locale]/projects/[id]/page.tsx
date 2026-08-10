@@ -45,10 +45,10 @@ export default async function ProjectPage({
   return (
     <main className="min-h-svh">
       <div className="flex h-16 items-center justify-between px-5 sm:px-8">
-        <Logo />
+        <Logo href="/" />
         <Link
           href="/#work"
-          className="font-mono text-[11px] tracking-[0.15em] text-ash uppercase transition-colors hover:text-bone"
+          className="font-mono text-[11px] tracking-[0.15em] text-ash uppercase transition-colors hover:text-bone focus-visible:text-bone"
         >
           {t("back")}
         </Link>

@@ -128,10 +128,12 @@ function WorkCard({
   project,
   index,
   latestLabel,
+  viewLabel,
 }: {
   project: Project;
   index: number;
   latestLabel: string;
+  viewLabel: string;
 }) {
   const cover = project.projectImgs?.[0];
   const tag = project.isFeatured
@@ -141,7 +143,7 @@ function WorkCard({
   return (
     <Link
       href={`/projects/${project.id}`}
-      className="group relative flex flex-col overflow-hidden bg-panel transition-colors duration-300 hover:bg-white/[0.04]"
+      className="group relative flex flex-col overflow-hidden bg-panel transition-[background-color,transform] duration-300 hover:bg-white/[0.04] focus-visible:bg-white/[0.04] focus-visible:outline-offset-4 active:scale-[0.99]"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-ink">
         {cover ? (
@@ -171,7 +173,7 @@ function WorkCard({
         <h3 className="font-display text-lg font-bold leading-tight text-bone">
           {project.title}
         </h3>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.15em] text-faint">
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ash">
           {project.role}
         </p>
         <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ash">
@@ -190,6 +192,18 @@ function WorkCard({
             </span>
           ))}
         </div>
+
+        <div className="mt-4 flex items-center justify-between">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
+            {viewLabel}
+          </span>
+          <span
+            aria-hidden="true"
+            className="font-mono text-xs text-steel opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+          >
+            &gt;
+          </span>
+        </div>
       </div>
     </Link>
   );
@@ -200,7 +214,7 @@ async function Work({ projects }: { projects: Project[] }) {
   const projectsT = await getTranslations("projects");
 
   return (
-    <section id="work" className="mx-auto max-w-[1600px] px-5 py-28 sm:px-8">
+    <section id="work" className="mx-auto max-w-[1600px] scroll-mt-16 px-5 py-28 sm:px-8">
       <SectionHeading index="01" label={t("work")} art={ART_WORK} />
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project, i) => (
@@ -209,6 +223,7 @@ async function Work({ projects }: { projects: Project[] }) {
             project={project}
             index={i}
             latestLabel={projectsT("latest")}
+            viewLabel={projectsT("view")}
           />
         ))}
       </div>
@@ -221,7 +236,7 @@ async function About({ profile }: { profile: Profile }) {
   const sectionsT = await getTranslations("sections");
 
   return (
-    <section id="about" className="mx-auto max-w-[1600px] px-5 py-28 sm:px-8">
+    <section id="about" className="mx-auto max-w-[1600px] scroll-mt-16 px-5 py-28 sm:px-8">
       <SectionHeading index="02" label={sectionsT("about")} />
 
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
@@ -347,15 +362,16 @@ async function Contact({ profile }: { profile: Profile }) {
   const t = await getTranslations("contact");
 
   return (
-    <section id="contact" className="mt-4 bg-panel">
+    <section id="contact" className="mt-4 scroll-mt-16 bg-panel">
       <div className="mx-auto max-w-[1600px] px-5 py-24 text-center sm:px-8">
         <AsciiArt seed="contact" art={ART_FACE} className="mx-auto mb-6" />
         <p className="font-mono text-xs tracking-[0.25em] text-faint uppercase">
           [03] {t("label")}
         </p>
         <a
-          href="mailto:hello@emilioblacksmith.dev"
-          className="mt-6 inline-block break-all font-display text-[clamp(1.4rem,6vw,3.75rem)] font-bold tracking-tight text-bone transition-colors hover:text-steel"
+          href="mailto:emilioblacksmithlush@gmail.com"
+          aria-label="emilioblacksmithlush@gmail.com"
+          className="mt-6 inline-block break-all font-display text-[clamp(1.4rem,6vw,3.75rem)] font-bold tracking-tight text-bone transition-colors hover:text-steel focus-visible:text-steel"
         >
           emilio@blacksmith:~$
         </a>
@@ -365,7 +381,7 @@ async function Contact({ profile }: { profile: Profile }) {
             href={profile.links.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2 border border-white/10 px-5 py-2.5 font-mono text-xs tracking-[0.15em] text-ash uppercase transition-colors hover:border-steel/50 hover:text-bone"
+            className="group flex items-center gap-2 border border-white/10 px-5 py-2.5 font-mono text-xs tracking-[0.15em] text-ash uppercase transition-colors hover:border-steel/50 hover:text-bone focus-visible:border-steel/50 focus-visible:text-bone active:scale-[0.98]"
           >
             {t("github")}
             <span className="text-steel transition-transform duration-300 group-hover:translate-x-0.5">&gt;</span>
@@ -374,7 +390,7 @@ async function Contact({ profile }: { profile: Profile }) {
             href={profile.links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2 border border-white/10 px-5 py-2.5 font-mono text-xs tracking-[0.15em] text-ash uppercase transition-colors hover:border-steel/50 hover:text-bone"
+            className="group flex items-center gap-2 border border-white/10 px-5 py-2.5 font-mono text-xs tracking-[0.15em] text-ash uppercase transition-colors hover:border-steel/50 hover:text-bone focus-visible:border-steel/50 focus-visible:text-bone active:scale-[0.98]"
           >
             {t("linkedin")}
             <span className="text-steel transition-transform duration-300 group-hover:translate-x-0.5">&gt;</span>
@@ -383,10 +399,6 @@ async function Contact({ profile }: { profile: Profile }) {
             <span className="text-steel">$</span> {profile.links.npm}
           </span>
         </div>
-
-        <p className="mt-12 font-mono text-[10px] tracking-[0.2em] text-faint uppercase">
-          {t("footer")}
-        </p>
       </div>
     </section>
   );
