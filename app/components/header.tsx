@@ -14,10 +14,10 @@ export async function Header() {
 
   return (
     <ScrollScrim>
-      <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-5 sm:px-8">
+      <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between gap-3 px-4 sm:gap-6 sm:px-8">
         <Logo />
 
-        <nav className="flex items-center gap-2 sm:gap-8">
+        <nav className="flex shrink-0 items-center gap-3 sm:gap-8">
           {NAV.map((item) => (
             <a
               key={item.index}
@@ -25,14 +25,14 @@ export async function Header() {
               className="group flex items-baseline gap-1.5 px-1 py-2 font-mono text-[9px] font-medium tracking-[0.12em] text-ash uppercase transition-colors hover:text-bone focus-visible:text-bone active:opacity-70 sm:text-[11px] sm:tracking-[0.18em]"
             >
               <span className="hidden text-[9px] text-faint sm:inline">[{item.index}]</span>
-              <span className="relative">
+              <span className="relative whitespace-nowrap">
                 {t(item.key)}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-steel transition-all duration-300 group-hover:w-full group-focus-visible:w-full" />
               </span>
             </a>
           ))}
 
-          <span aria-hidden="true" className="ml-1 h-4 w-px bg-white/10" />
+          <span aria-hidden="true" className="mx-1 h-4 w-px shrink-0 bg-white/10 sm:mx-2" />
           <LanguageSwitcher />
         </nav>
       </div>

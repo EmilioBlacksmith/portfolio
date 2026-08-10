@@ -13,7 +13,7 @@ export function LanguageSwitcher() {
 
   return (
     <div
-      className="flex items-center gap-1 font-mono text-[11px] tracking-[0.12em] select-none"
+      className="flex shrink-0 items-center gap-1 font-mono text-[11px] tracking-[0.12em] select-none"
       role="group"
       aria-label={t("language")}
     >
