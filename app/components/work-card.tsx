@@ -57,6 +57,20 @@ export function WorkCard({
         <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ash">
           {project.description}
         </p>
+        {project.stats && (
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t border-white/10 pt-3">
+            {project.stats.map((stat) => (
+              <span key={stat.label} className="flex items-baseline gap-1.5">
+                <span className="font-mono text-base font-bold text-steel">
+                  {stat.value}
+                </span>
+                <span className="font-mono text-[8px] uppercase tracking-wider text-faint">
+                  {stat.label}
+                </span>
+              </span>
+            ))}
+          </div>
+        )}
         <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
           {(project.isFeatured
             ? project.techStack

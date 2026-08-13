@@ -156,6 +156,24 @@ export default async function ProjectPage({
           </div>
 
           <aside>
+            {project.stats && (
+              <div className="mb-8 grid grid-cols-2 gap-3">
+                {project.stats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="border border-white/10 bg-panel/50 p-4"
+                  >
+                    <p className="font-mono text-2xl font-bold text-steel">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-faint">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
               {t("techStack")}
             </h2>

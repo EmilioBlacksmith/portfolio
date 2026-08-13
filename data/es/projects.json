@@ -4,6 +4,12 @@
         "year": 2026,
         "isFeatured": true,
         "description": "Las redes sociales de los adictos a las pantallas — registra películas y series, haz amigos y recibe recomendaciones ajustadas a tu gusto con IA.",
+        "stats": [
+            { "value": "12", "label": "miembros" },
+            { "value": "51", "label": "reseñas" },
+            { "value": "346", "label": "calificaciones" },
+            { "value": "19.2k+", "label": "títulos guardados" }
+        ],
         "projectImgs": [
             "/images/previews/daydream/1.webp",
             "/images/previews/daydream/2.webp",
@@ -26,7 +32,7 @@
             "Gemini AI"
         ],
         "role": "Fundador y Product Engineer",
-        "overview": "Daydream es el espacio social para todo lo que ves. Registra películas y series, compártelas con amigos y deja que la plataforma aprenda tu gusto — luego recibe comunidades, conversaciones y recomendaciones que de verdad te quedan. Primero web, después móvil.",
+        "overview": "Daydream es el espacio social para todo lo que ves. Registra películas y series, compártelas con amigos y deja que la plataforma aprenda tu gusto — luego recibe comunidades, conversaciones y recomendaciones que de verdad te quedan. Primero web, después móvil. Todavía temprano, pero con gente real usándolo: 12 miembros, 51 reseñas, 346 calificaciones y más de 19.2k títulos guardados.",
         "highlights": [
             "API en Rust + Axum — 18 módulos de dominio, WebSockets, Redis, S3",
             "Motor de 'vibe' con IA — 3 vectores de gusto de 1536 dimensiones actualizados por EMA",
@@ -40,7 +46,13 @@
     {
         "title": "Movie Landing Page",
         "year": 2024,
-        "description": "Esta landing page de películas aprovecha la API de TMDB y muestra una lista de películas y series. Los usuarios pueden navegar listas y secciones, ver información detallada de cada contenido y disfrutar de una experiencia fluida y responsiva.",
+        "description": "Explora películas y series con datos de la API de TMDB. Recorre las listas, abre cualquier título para ver sus detalles y disfruta de una experiencia fluida y responsiva.",
+        "stats": [
+            { "value": "500+", "label": "títulos navegables" },
+            { "value": "8", "label": "secciones de exploración" },
+            { "value": "1", "label": "API (TMDB)" },
+            { "value": "6+", "label": "secciones curadas" }
+        ],
         "sliderImg": "/images/slider/1.webp",
         "projectImgs": [
             "/images/previews/project_2/1.webp",
@@ -59,8 +71,8 @@
             "Swiper",
             "Prettier"
         ],
-        "overview": "Esta landing page de películas aprovecha la API de TMDB y muestra una lista de películas y series. Los usuarios pueden navegar listas y secciones, ver información detallada de cada contenido y disfrutar de una experiencia fluida y responsiva.",
-        "challenges": "Uno de los retos que enfrenté al desarrollar este sitio fue manejar las llamadas a la API de TMDB, además del manejo de estado con React Context API para cambiar dinámicamente la sección mostrada desde la barra lateral o al llamar cada tarjeta de contenido.",
+        "overview": "Esta landing page trae películas y series desde la API de TMDB. Navega las listas, abre cualquier título para ver todos sus detalles y disfruta de una experiencia fluida y responsiva.",
+        "challenges": "El dolor de cabeza principal fueron las llamadas a la API de TMDB, más mantener el estado en sincronía con React Context al cambiar de sección desde la barra lateral o al abrir una tarjeta de contenido.",
         "role": "Desarrollador Frontend",
         "features": [
             {
@@ -86,6 +98,12 @@
         "title": "The Busy Gamer App",
         "year": 2024,
         "description": "La app web The Busy Gamer te permite dar seguimiento a los videojuegos que quieres jugar y calcula una aproximación de cuánto tiempo te tomará terminarlos, según tu horario. Impulsada por la API de How Long To Beat.",
+        "stats": [
+            { "value": "30k+", "label": "juegos por vencer" },
+            { "value": "2", "label": "modos de ritmo" },
+            { "value": "1", "label": "horario ingresado" },
+            { "value": "∞", "label": "tamaño de la lista" }
+        ],
         "sliderImg": "/images/slider/2.webp",
         "projectImgs": [
             "/images/previews/project_3/1.webp",
@@ -104,7 +122,7 @@
             "Prettier",
             "Axios"
         ],
-        "overview": "La razón detrás de esta app es que no todo jugador puede permitirse jugar más de 1 o 2 horas a veces: tienes que trabajar o te falta tiempo libre. Esta app es para ti, el gamer que quiere saber cuánto tardaría en terminar hasta cada videojuego de Persona, jaja.",
+        "overview": "La idea es simple: entre el trabajo y la vida, a veces solo tienes una o dos horas para jugar. Esta app es para el gamer que quiere saber cuánto tardaría en terminar su lista pendiente — uno de Persona a la vez, jaja.",
         "challenges": "Uno de los principales retos fue cómo manejar las props dentro de la aplicación para rastrear de verdad cada videojuego y gestionar todo dentro de la app: desde permitir al jugador ver qué juegos ya está rastreando, hasta cómo calcular cuánto tiempo le tomaría terminar los juegos de su lista de seguimiento.",
         "role": "Desarrollador Full Stack",
         "features": [
@@ -127,6 +145,11 @@
         "title": "Node Terminal Contact Card",
         "year": 2024,
         "description": "Una tarjeta de contacto basada en terminal, que se puede invocar desde cualquier lugar con NPM (Node Package Manager).",
+        "stats": [
+            { "value": "1", "label": "comando (npx)" },
+            { "value": "5+", "label": "enlaces en el menú" },
+            { "value": "∞", "label": "corre en cualquier máquina" }
+        ],
         "sliderImg": "/images/slider/3.webp",
         "projectImgs": [
             "/images/previews/project_4/1.webp",
@@ -153,6 +176,11 @@
         "title": "bioLink",
         "year": 2023,
         "description": "Un sitio web minimalista y responsivo para mostrar tus principales enlaces de redes sociales o proyectos y compartirlos en línea. Está basado en Linktree y Linkin.bio.",
+        "stats": [
+            { "value": "1", "label": "página de perfil" },
+            { "value": "∞", "label": "enlaces soportados" },
+            { "value": "100%", "label": "mobile-first" }
+        ],
         "sliderImg": "/images/slider/4.webp",
         "projectImgs": [
             "/images/previews/project_5/1.webp",
@@ -179,6 +207,11 @@
         "title": "Mother Frogger",
         "year": 2023,
         "description": "FROGGER pero con física Ragdoll, hecho en Unity.",
+        "stats": [
+            { "value": "10", "label": "lugares en la tabla" },
+            { "value": "1", "label": "rana ragdoll" },
+            { "value": "∞", "label": "caos de tráfico" }
+        ],
         "projectImgs": [
             "/images/previews/project_6/1.webp",
             "/images/previews/project_6/2.webp",
@@ -208,6 +241,11 @@
         "title": "Emilio Blacksmith",
         "year": 2021,
         "description": "La marca detrás de la forja — un canal de YouTube y una persona en línea sobre videojuegos, software y hacer que el código sea divertido de ver.",
+        "stats": [
+            { "value": "2017", "label": "primera línea de código" },
+            { "value": "2", "label": "oficios — juegos y software" },
+            { "value": "∞", "label": "ideas en la forja" }
+        ],
         "projectImgs": [
             "/images/previews/project_8/1.webp",
             "/images/previews/project_8/2.webp",

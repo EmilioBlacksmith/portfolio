@@ -1,23 +1,23 @@
 {
   "metadata": {
     "title": "Emilio Blacksmith Herrera",
-    "description": "Emilio Herrera, alias BLACKSMITH. Product engineer en frontends modernos, backends de alto rendimiento e infraestructura en la nube — sistemas de recomendación, flujos agénticos con LLM y despliegues en el edge, construidos desde cero."
+    "description": "Emilio Herrera, alias BLACKSMITH. Product engineer forjando frontends modernos, backends de alto rendimiento e infraestructura en la nube — sistemas de recomendación, flujos agénticos con LLM y despliegues en el edge, construidos desde cero."
   },
   "nav": {
     "work": "PROYECTOS",
     "about": "SOBRE MÍ",
     "contact": "CONTACTO",
-    "language": "Idioma"
+    "language": "Idioma",
+    "menu": "menú"
   },
   "hero": {
-    "bio": "Product engineer que forja software completo de punta a punta — interfaces, backends serverless y funciones de IA construidas con flujos de LLM y sistemas agénticos. Actualmente construyo en Finsphera y fundo Blacksmith Softworks desde Puebla, México.",
-    "helloCard": "¡Hola! Soy Emilio — the Blacksmith. Product Engineer y desarrollador indie de apps con base en <mexico>México</mexico>, actualmente construyo funciones impulsadas por IA <finsphera>@ Finsphera</finsphera>.",
+    "helloCard": "¡Hey! Soy Emilio — the Blacksmith. Product engineer y desarrollador indie en <mexico>México</mexico>, actualmente construyendo funciones de IA <finsphera>@ Finsphera</finsphera>.",
     "loadingModel": "cargando modelo",
-    "sceneNote": "El modelo 3D es uno de mis proyectos 3D."
+    "sceneNote": "El modelo 3D de la escena es uno de mis proyectos."
   },
   "sections": {
     "work": "OBRAS FORJADAS",
-    "about": "EL HERRERO"
+    "about": "EL YUNQUE"
   },
   "about": {
     "experience": "experiencia",

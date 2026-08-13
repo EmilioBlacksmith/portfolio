@@ -4,6 +4,12 @@
         "year": 2026,
         "isFeatured": true,
         "description": "The social media of the screen junkies — log movies & TV, make friends, and get AI-tuned recommendations.",
+        "stats": [
+            { "value": "12", "label": "members" },
+            { "value": "51", "label": "reviews" },
+            { "value": "346", "label": "ratings" },
+            { "value": "19.2k+", "label": "titles saved" }
+        ],
         "projectImgs": [
             "/images/previews/daydream/1.webp",
             "/images/previews/daydream/2.webp",
@@ -26,7 +32,7 @@
             "Gemini AI"
         ],
         "role": "Founder & Product Engineer",
-        "overview": "Daydream is the social space for everything you watch. Track movies and TV, share them with friends, and let the platform learn your taste — then get communities, conversations, and recommendations that actually fit you. Web first, mobile next.",
+        "overview": "Daydream is the social space for everything you watch. Track movies and TV, share them with friends, and let the platform learn your taste — then get communities, conversations, and recommendations that actually fit you. Web first, mobile next. Still early, but real people are using it: 12 members, 51 reviews, 346 ratings, and 19.2k+ titles saved.",
         "highlights": [
             "Rust + Axum API — 18 domain modules, WebSockets, Redis, S3",
             "AI 'vibe' engine — 3x 1536-dim taste vectors updated via EMA",
@@ -40,7 +46,13 @@
     {
         "title": "Movie Landing Page",
         "year": 2024,
-        "description": "This Movie Landing Page leverages the TMDB API and display the a list of movies and tv shows. Users can browse through the lists and sections, view detailed information about each media and enjoy a smooth and responsive user experience.",
+        "description": "Browse movies and TV shows with data from the TMDB API. Scroll the lists, open any title for details, and get a smooth, responsive experience.",
+        "stats": [
+            { "value": "500+", "label": "titles browsable" },
+            { "value": "8", "label": "browse sections" },
+            { "value": "1", "label": "API (TMDB)" },
+            { "value": "6+", "label": "curated sections" }
+        ],
         "sliderImg": "/images/slider/1.webp",
         "projectImgs": [
             "/images/previews/project_2/1.webp",
@@ -59,8 +71,8 @@
             "Swiper",
             "Prettier"
         ],
-        "overview": "This Movie Landing Page leverages the TMDB API and display the a list of movies and tv shows. Users can browse through the lists and sections, view detailed information about each media and enjoy a smooth and responsive user experience.",
-        "challenges": "One of the challenges I faced while developing this website was handling the API calls with the <a href='https://www.themoviedb.org/'>TMDB API</a>, besides the use of State Management with React's Context API to dynamically change the current section being shown with sidebar or when calling each media card.",
+        "overview": "This landing page pulls movies and TV shows from the TMDB API. Browse the lists, open any title for the full details, and enjoy a smooth, responsive experience.",
+        "challenges": "The main headache was the TMDB API calls, plus keeping state in sync with React's Context API as the sidebar or a media card swapped what was on screen.",
         "role": "Front End Developer",
         "features": [
             {
@@ -86,6 +98,12 @@
         "title": "The Busy Gamer App",
         "year": 2024,
         "description": "The Busy Gamer Web App allows you to track videogames that you want to play, and makes an approximation of how long is going to take you to finish those games, based on your schedule. Powered by How Long To Beat API.",
+        "stats": [
+            { "value": "30k+", "label": "games to beat" },
+            { "value": "2", "label": "pace modes" },
+            { "value": "1", "label": "schedule input" },
+            { "value": "∞", "label": "backlog size" }
+        ],
         "sliderImg": "/images/slider/2.webp",
         "projectImgs": [
             "/images/previews/project_3/1.webp",
@@ -104,7 +122,7 @@
             "Prettier",
             "Axios"
         ],
-        "overview": "The reasoning behind this app is that not every gamer can afford to play more than 1 to 2 hours sometimes, you can either need to go to work, or lack a lot of free time. This app is meant for you, the gamers who want to check how long it would take to finish every single Persona Videogame lol.",
+        "overview": "The idea is simple: between work and everything else, you might only get a couple of hours of gaming a week. So this app is for the gamer who wants to know exactly how long it'll take to finally finish the backlog — one Persona game at a time.",
         "challenges": "One of the main challenges was how to handle props within the application, so we can truly track each videogame, and manage everything within the app, from allowing the player to see what games are already being tracked, and managing how we were going to get a result for the user, in this case how to handle the calculations of how long it would take you to finish the games you're tracking in the tracking list.",
         "role": "Full Stack Developer",
         "features": [
@@ -127,6 +145,11 @@
         "title": "Node Terminal Contact Card",
         "year": 2024,
         "description": "A terminal-based contact info / business card, that can be called anywhere with NPM(Node Package Manager).",
+        "stats": [
+            { "value": "1", "label": "command (npx)" },
+            { "value": "5+", "label": "links in the menu" },
+            { "value": "∞", "label": "runs on any machine" }
+        ],
         "sliderImg": "/images/slider/3.webp",
         "projectImgs": [
             "/images/previews/project_4/1.webp",
@@ -153,6 +176,11 @@
         "title": "bioLink",
         "year": 2023,
         "description": "A minimalistic responsive website to showcase main social media links or project links, to share to others online. It is based in Linktree and Linkin.bio.",
+        "stats": [
+            { "value": "1", "label": "profile page" },
+            { "value": "∞", "label": "links supported" },
+            { "value": "100%", "label": "mobile-first" }
+        ],
         "sliderImg": "/images/slider/4.webp",
         "projectImgs": [
             "/images/previews/project_5/1.webp",
@@ -179,6 +207,11 @@
         "title": "Mother Frogger",
         "year": 2023,
         "description": "FROGGER but with Ragdoll Physics, made with Unity.",
+        "stats": [
+            { "value": "10", "label": "leaderboard slots" },
+            { "value": "1", "label": "ragdoll frog" },
+            { "value": "∞", "label": "traffic chaos" }
+        ],
         "projectImgs": [
             "/images/previews/project_6/1.webp",
             "/images/previews/project_6/2.webp",
@@ -208,6 +241,11 @@
         "title": "Emilio Blacksmith",
         "year": 2021,
         "description": "The brand behind the forge — a YouTube channel and online persona for videogames, software, and making code fun to watch.",
+        "stats": [
+            { "value": "2017", "label": "first line of code" },
+            { "value": "2", "label": "crafts — games & software" },
+            { "value": "∞", "label": "ideas in the forge" }
+        ],
         "projectImgs": [
             "/images/previews/project_8/1.webp",
             "/images/previews/project_8/2.webp",

@@ -4,8 +4,8 @@
   "location": "Puebla, México",
   "image": "/images/profile.webp",
   "bio": [
-    "Blacksmith significa Herrera en español — y me lo tomé al pie de la letra. Soy Product Engineer que forja software completo de punta a punta: interfaces, backends serverless y funciones de IA construidas con flujos de LLM y sistemas agénticos.",
-    "De día soy Software Engineer en Finsphera, diseñando y entregando funciones de producto completas. De noche dirijo Blacksmith Softworks, mi estudio de apps web, herramientas y videojuegos. Con raíces en Game & Interactive Media Design, cuido los detalles que la gente siente pero no ve."
+    "Herrera significa herrero — el apellido ya venía con el oficio. Soy Product Engineer y forjo software de punta a punta: interfaces cuidadas, backends serverless y funciones de IA construidas con flujos de LLM y sistemas agénticos.",
+    "Hoy diseño y entrego funciones de producto completas en Finsphera. En mi tiempo libre dirijo Blacksmith Softworks, un pequeño estudio de apps web, herramientas y videojuegos. Mis raíces están en el Diseño de Juegos y Medios Interactivos, por eso me obsesionan los detalles que la gente siente pero no termina de ver."
   ],
   "experience": [
     {
@@ -14,9 +14,9 @@
       "period": "Ago 2024 — Presente",
       "location": "Remoto",
       "points": [
-        "Diseñé y construí funciones de producto de punta a punta, abarcando diseño de UI/UX, arquitectura backend serverless e infraestructura.",
-        "Desarrollé funciones impulsadas por IA usando flujos de LLM y sistemas agénticos para automatizar tareas complejas de la aplicación.",
-        "Construí interfaces web responsivas y de alto rendimiento con Next.js, React y Tailwind CSS."
+        "Diseñé y entregué funciones de producto de punta a punta — del diseño de UI/UX y la arquitectura backend serverless a la infraestructura.",
+        "Construí funciones impulsadas por IA con flujos de LLM y sistemas agénticos para automatizar las partes complejas de la app.",
+        "Creé interfaces web responsivas y de alto rendimiento con Next.js, React y Tailwind CSS."
       ]
     },
     {
@@ -25,7 +25,7 @@
       "period": "Mar 2021 — Presente",
       "location": "México · Remoto",
       "points": [
-        "Una empresa de desarrollo de software enfocada en crear experiencias útiles y divertidas, de apps web a videojuegos."
+        "Un estudio para software útil y divertido — de apps web a videojuegos."
       ]
     },
     {
@@ -35,7 +35,7 @@
       "location": "Estados Unidos · Remoto",
       "points": [
         "Desarrollé el sitio web de la comunidad (Wix + diseño en Figma).",
-        "Diseñé publicaciones para redes sociales para impulsar el conocimiento y el crecimiento de la marca."
+        "Diseñé contenido para redes sociales para hacer crecer la marca y mantener a la comunidad activa."
       ]
     }
   ],

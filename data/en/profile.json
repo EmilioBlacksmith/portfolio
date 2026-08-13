@@ -4,8 +4,8 @@
   "location": "Puebla, Mexico",
   "image": "/images/profile.webp",
   "bio": [
-    "Herrera means blacksmith in Spanish — and I took it literally. I'm a Product Engineer forging full-scale software end-to-end: interfaces, serverless backends, and AI features built on LLM workflows and agentic systems.",
-    "By day I'm a Software Engineer at Finsphera, designing and shipping end-to-end product features. By night I run Blacksmith Softworks, my studio for web apps, tools, and videogames. Rooted in Game & Interactive Media Design, I sweat the details people feel but don't see."
+    "Herrera is Spanish for blacksmith — so the name kind of chose the brand. I'm a Product Engineer who forges software end to end: polished interfaces, serverless backends, and AI features built on LLM workflows and agentic systems.",
+    "Today I design and ship product features at Finsphera. In my free time I run Blacksmith Softworks, a small studio making web apps, tools, and games. My roots are in Game & Interactive Media Design, which is why I sweat the details people feel but never quite notice."
   ],
   "experience": [
     {
@@ -14,9 +14,9 @@
       "period": "Aug 2024 — Present",
       "location": "Remote",
       "points": [
-        "Designed and built end-to-end product features, spanning UI/UX design, serverless backend architecture, and infrastructure.",
-        "Developed AI-driven features using LLM workflows and agentic systems to automate complex application tasks.",
-        "Built responsive, high-performance web interfaces using Next.js, React, and Tailwind CSS."
+        "Designed and shipped product features end to end — from UI/UX and serverless backend architecture to infrastructure.",
+        "Built AI-driven features with LLM workflows and agentic systems to automate the complex parts of the app.",
+        "Crafted responsive, high-performance web interfaces with Next.js, React, and Tailwind CSS."
       ]
     },
     {
@@ -25,7 +25,7 @@
       "period": "Mar 2021 — Present",
       "location": "Mexico · Remote",
       "points": [
-        "A software development company focused on making useful and fun experiences, from web apps to videogames."
+        "A studio for software that's useful and fun — from web apps to video games."
       ]
     },
     {
@@ -34,8 +34,8 @@
       "period": "Feb 2022 — Nov 2022",
       "location": "United States · Remote",
       "points": [
-        "Developed the community website (Wix + design in Figma).",
-        "Designed social media posts to drive brand awareness and growth."
+        "Built the community website (Wix + design in Figma).",
+        "Designed social media content to grow the brand and keep the community talking."
       ]
     }
   ],

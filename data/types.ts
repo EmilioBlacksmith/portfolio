@@ -7,6 +7,7 @@ export type Project = {
   sliderImg?: string;
   techStack: string[];
   role: string;
+  stats?: { value: string; label: string }[];
   overview?: string;
   highlights?: string[];
   features?: { title: string; description: string }[];

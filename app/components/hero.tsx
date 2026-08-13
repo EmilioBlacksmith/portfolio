@@ -21,10 +21,6 @@ export async function Hero() {
             </span>
           </h1>
 
-          <p className="mt-10 max-w-md text-sm leading-relaxed text-ash">
-            {t("bio")}
-          </p>
-
           <div className="mt-10 inline-flex max-w-md items-start gap-3 border border-white/10 bg-panel/70 p-4">
             <span aria-hidden="true" className="font-mono text-sm leading-5 text-steel">
               &gt;
