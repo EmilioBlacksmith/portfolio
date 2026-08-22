@@ -1,0 +1,44 @@
+name: Syndicate to Dev.to
+
+on:
+  repository_dispatch:
+    types: [syndicate]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+concurrency:
+  group: syndicate-devto
+  cancel-in-progress: false
+
+jobs:
+  syndicate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone blog vault
+        run: |
+          git clone --depth 1 \
+            "https://x-access-token:${BLOG_REPO_TOKEN}@${BLOG_REPO#https://}" \
+            /tmp/blog
+          mkdir -p blog
+          cp -r /tmp/blog/en/. blog/en/
+          cp -r /tmp/blog/es/. blog/es/
+        env:
+          BLOG_REPO: ${{ vars.BLOG_REPO }}
+          BLOG_REPO_TOKEN: ${{ secrets.BLOG_REPO_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Run syndication
+        run: node scripts/syndicate-devto.mjs
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          DEVTO_LOCALES: ${{ vars.DEVTO_LOCALES }}
+          DEVTO_DRAFT: ${{ vars.DEVTO_DRAFT }}

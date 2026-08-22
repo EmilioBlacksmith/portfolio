@@ -9,3 +9,16 @@ services:
     ports:
       - "3000:3000"
     restart: unless-stopped
+
+  syndicate:
+    build:
+      context: .
+      target: syndicate
+      args:
+        BLOG_REPO: ${BLOG_REPO:-https://github.com/EmilioBlacksmith/blog.git}
+        BLOG_REPO_TOKEN: ${BLOG_REPO_TOKEN:-}
+    environment:
+      - DEVTO_API_KEY=${DEVTO_API_KEY:-}
+      - DEVTO_LOCALES=${DEVTO_LOCALES:-en}
+      - DEVTO_DRAFT=${DEVTO_DRAFT:-}
+    restart: "no"
