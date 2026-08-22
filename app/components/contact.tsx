@@ -11,7 +11,7 @@ export async function Contact({ profile }: { profile: Profile }) {
       <div className="mx-auto max-w-[1600px] px-5 py-24 text-center sm:px-8">
         <AsciiArt seed="contact" art={ART_FACE} className="mx-auto mb-6" />
         <p className="font-mono text-xs tracking-[0.25em] text-faint uppercase">
-          [03] {t("label")}
+          [04] {t("label")}
         </p>
         <a
           href="mailto:emilioblacksmithlush@gmail.com"

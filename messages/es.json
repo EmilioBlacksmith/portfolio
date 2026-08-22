@@ -18,7 +18,8 @@
   },
   "sections": {
     "work": "OBRAS FORJADAS",
-    "about": "EL YUNQUE"
+    "about": "EL YUNQUE",
+    "blog": "EL DIARIO"
   },
   "about": {
     "experience": "experiencia",
@@ -35,6 +36,7 @@
     "title": "EL DIARIO",
     "description": "Notas de campo desde la forja — ingeniería, oficio y el chisme ocasional, escritas en markdown.",
     "empty": "aún no hay entradas — la forja está fría. vuelve más tarde.",
+    "all": "ver todas las entradas",
     "minRead": "min de lectura",
     "backToTop": "volver arriba"
   },

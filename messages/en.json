@@ -18,7 +18,8 @@
   },
   "sections": {
     "work": "FORGED WORKS",
-    "about": "THE ANVIL"
+    "about": "THE ANVIL",
+    "blog": "THE JOURNAL"
   },
   "about": {
     "experience": "experience",
@@ -35,6 +36,7 @@
     "title": "THE JOURNAL",
     "description": "Field notes from the forge — engineering, craft, and the occasional hot take, written in markdown.",
     "empty": "no entries yet — the forge is cold. come back later.",
+    "all": "view all entries",
     "minRead": "min read",
     "backToTop": "back to top"
   },
