@@ -23,6 +23,9 @@ export async function generateMetadata({
   return {
     title: project ? project.title : t("titleSuffix"),
     description: project?.description,
+    alternates: {
+      canonical: project ? `/projects/${project.id}` : undefined,
+    },
   };
 }
 

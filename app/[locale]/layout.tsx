@@ -91,9 +91,6 @@ export async function generateMetadata({
       index: true,
       follow: true,
     },
-    alternates: {
-      canonical: "/",
-    },
     openGraph: {
       type: "website",
       url: SITE.url,

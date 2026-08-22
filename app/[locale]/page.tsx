@@ -6,6 +6,14 @@ import { About } from "@/app/components/about";
 import { Contact } from "@/app/components/contact";
 import { getProfile, getProjects } from "@/data";
 
+export async function generateMetadata() {
+  return {
+    alternates: {
+      canonical: "/",
+    },
+  };
+}
+
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   setRequestLocale(locale);

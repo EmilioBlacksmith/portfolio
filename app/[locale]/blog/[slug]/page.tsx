@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n/navigation";
 import { Header } from "@/app/components/header";
+import { JsonLd } from "@/app/components/json-ld";
 import { getPost, getPosts, resolveAsset } from "@/lib/blog";
+import { SITE } from "@/lib/site";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -20,6 +22,9 @@ export async function generateMetadata({
   return {
     title: post.frontmatter.title,
     description: post.frontmatter.description,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
     openGraph: {
       type: "article",
       publishedTime: post.frontmatter.date,
@@ -46,9 +51,29 @@ export default async function BlogPost({
     ? resolveAsset(post.frontmatter.cover)
     : undefined;
 
+  const articleUrl = `${SITE.url}/blog/${post.slug}`;
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.frontmatter.title,
+    description: post.frontmatter.description,
+    datePublished: post.frontmatter.date,
+    dateModified: post.frontmatter.date,
+    inLanguage: locale,
+    url: articleUrl,
+    image: cover ? `${SITE.url}${cover}` : `${SITE.url}/blog/${post.slug}/opengraph-image`,
+    author: {
+      "@type": "Person",
+      name: SITE.name,
+      url: SITE.url,
+    },
+    mainEntityOfPage: articleUrl,
+  };
+
   return (
     <main id="top" className="min-h-svh pt-16">
       <Header base="/" />
+      <JsonLd data={articleSchema} />
 
       <div className="mx-auto max-w-[760px] px-5 py-12 sm:px-8">
         <header className="pb-8">
