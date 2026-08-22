@@ -2,6 +2,8 @@ import Image from "next/image";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link, locales } from "@/i18n/navigation";
 import { Header } from "@/app/components/header";
+import { AsciiArt } from "@/app/components/ascii-art";
+import { ART_QUILL } from "@/data/ascii-art";
 import { getPosts, resolveAsset } from "@/lib/blog";
 
 export function generateStaticParams() {
@@ -37,16 +39,19 @@ export default async function BlogIndex({
       <Header base="/" />
 
       <div className="mx-auto max-w-[760px] px-5 py-12 sm:px-8">
-        <header className="pb-10">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
-            emilio@blacksmith:~/blog$
-          </p>
-          <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-bone sm:text-5xl">
-            {t("title")}
-          </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ash">
-            {t("description")}
-          </p>
+        <header className="mb-16 flex flex-col gap-6 pb-8 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
+              emilio@blacksmith:~/blog$
+            </p>
+            <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-bone sm:text-5xl">
+              {t("title")}
+            </h1>
+            <p className="mt-4 text-base leading-relaxed text-ash">
+              {t("description")}
+            </p>
+          </div>
+          <AsciiArt seed="blog" art={ART_QUILL} className="hidden shrink-0 sm:block" />
         </header>
 
         {posts.length === 0 ? (
