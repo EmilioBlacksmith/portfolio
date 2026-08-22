@@ -29,6 +29,7 @@ emilio@blacksmith:~$ npm run dev
 | **SEO** | `robots.txt`, `sitemap.xml`, dynamic OG image (`emilio@blacksmith:~$` card), JSON-LD Person/WebSite, per-locale metadata, custom favicon. |
 | **A11y** | Steel `:focus-visible` rings, larger hit areas, localized ARIA labels, reduced-motion everywhere. |
 | **ASCII art** | Hand-fed braille pieces rotate through the section headings — anvil, hammer, forge, and a face at the contact block. |
+| **Blog** | Markdown-first journal. Write posts in Obsidian, flip `published: true`, and they're statically generated at build time. No CMS, no database. |
 
 ## STACK
 
@@ -39,6 +40,7 @@ TypeScript 5
 Tailwind CSS 4
 @react-three/fiber + drei + three
 next-intl
+gray-matter + marked (blog content)
 ```
 
 ## RUN IT
@@ -62,20 +64,32 @@ npm run start
 app/
   [locale]/              i18n-scoped routes (root layout, home, project pages)
     projects/[id]/       per-project static pages
+    blog/                blog index
+    blog/[slug]/         per-post static pages
   components/
     scene/               the 3D engine (camera, lights, model)
     header, hero, work, about, contact, ...
 data/
   en/ es/                locale-scoped content (projects + profile JSON)
   types.ts               shared Project/Profile types
+lib/
+  blog-types.ts          Post + frontmatter types
+  blog.ts                blog loader (gray-matter + marked, published gate)
+  site.ts                site config
 i18n/                    next-intl routing + request config
 messages/                en.json / es.json UI strings
-public/models/shield.glb the 3D star of the show
+public/
+  models/shield.glb      the 3D star of the show
+  blog/                  post images (copied from the vault at build time)
 ```
+
+> `blog/` content is **not** in this repo — it lives in the separate `blog`
+> vault repo (`https://github.com/EmilioBlacksmith/blog.git`) and is
+> cloned in at build time (see below).
 
 ## EDITING YOUR CONTENT
 
-Everything worth editing lives in `data/` and `messages/` — no component surgery needed.
+Everything worth editing lives in `data/`, `messages/`, and `blog/` — no component surgery needed.
 
 ```bash
 # Projects (titles, descriptions, stacks, images)
@@ -91,16 +105,102 @@ messages/en.json             messages/es.json
 public/models/shield.glb
 ```
 
-## DOCKER
+### BLOG — WRITE IN OBSIDIAN, SHIP BY TOGGLING ONE FLAG
 
-The app builds to Next.js **standalone** output for a slim image. Run it anywhere:
+Blog content lives in its **own repo** —
+`https://github.com/EmilioBlacksmith/blog.git` — which is the
+Obsidian vault. Layout:
+
+```
+blog-repo/               ← the Obsidian vault
+  en/*.md
+  es/*.md
+  assets/*.png|svg       ← images
+```
+
+The filename is the slug. Every post needs a YAML frontmatter block:
+
+```yaml
+---
+title: "This blog runs on Obsidian"
+description: "Markdown-first, CMS-free."
+date: 2026-08-22
+tags: [nextjs, markdown, workflow]
+published: true          # false → stays off the site, no build
+translationOf: my-other-slug  # optional cross-locale link
+cover: cover-demo.svg         # optional featured image → /blog/<name>
+---
+```
+
+The `published` flag is the whole trick — drafts never leave the forge.
+
+- **Images** live in the vault's `assets/`. In Obsidian, set *Settings → Files
+  & Links → Default location for attachments* to `assets`, then embed with
+  native Obsidian syntax: `![[image.png|alt text]]`. Plain markdown
+  `![alt](/blog/image.png)` works too.
+- **Cover** is optional; give it a `cover:` field and it renders as a
+  thumbnail on `/blog` and a hero on the post page.
+- **Editing**: flip `published` to `true`, push the vault repo, rebuild the
+  portfolio — the new post ships.
+
+#### Local dev
+
+The vault content is gitignored here, so clone it in to write/serve locally:
 
 ```bash
-docker build -t emilioherrera .
+git clone https://github.com/EmilioBlacksmith/blog.git blog
+cp -r blog/assets public/blog
+npm run dev
+```
+
+#### Docker / VPS build
+
+The `Dockerfile` clones the vault at build time, so every image gets the
+latest posts — no extra CI. The vault repo requires a token to read:
+
+```bash
+docker build \
+  --build-arg BLOG_REPO=https://github.com/EmilioBlacksmith/blog.git \
+  --build-arg BLOG_REPO_TOKEN=<ghp_pat_with_repo_scope> \
+  -t emilioherrera .
+```
+
+`BLOG_REPO` defaults to `https://github.com/EmilioBlacksmith/blog.git`.
+The token is used only inside the builder stage and never lands in the
+final image. If the vault repo ever becomes public, drop `BLOG_REPO_TOKEN`.
+
+## DOCKER
+
+The app builds to Next.js **standalone** output for a slim image. Build args
+come from a `.env` file, so nothing needs to be passed by hand:
+
+```bash
+cp .env.example .env      # then paste your BLOG_REPO_TOKEN
+docker compose up -d --build
+```
+
+`.env`:
+
+```env
+BLOG_REPO=https://github.com/EmilioBlacksmith/blog.git
+BLOG_REPO_TOKEN=ghp_...   # fine-grained PAT, Contents: Read
+```
+
+Compose maps `BLOG_REPO` / `BLOG_REPO_TOKEN` into the build automatically
+(`.env` is gitignored, `.env.example` is the committed template). Running
+it without compose:
+
+```bash
+docker build --build-arg BLOG_REPO_TOKEN=$(grep BLOG_REPO_TOKEN .env | cut -d= -f2) -t emilioherrera .
 docker run -d -p 3000:3000 --name emilioherrera emilioherrera
 ```
 
-No env vars required — the image is self-contained.
+The blog clone step is layer-cached, so unchanged builds stay fast — run
+`docker compose build --no-cache` to force a fresh vault fetch.
+
+No runtime env vars required — the image is self-contained. The only
+build-time secret is the blog repo PAT (omit `BLOG_REPO_TOKEN` if the vault
+repo ever becomes publicly readable).
 
 ## DEPLOY NOTES
 

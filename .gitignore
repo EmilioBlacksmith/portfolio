@@ -32,9 +32,19 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
+
+# obsidian vault (local editor state + trash)
+.obsidian/
+.trash/
+
+# blog vault content + images — lives in the separate `blog` repo,
+# cloned into `blog/` and `public/blog/` at build time (see Dockerfile)
+/blog/
+/public/blog/
 
 # typescript
 *.tsbuildinfo

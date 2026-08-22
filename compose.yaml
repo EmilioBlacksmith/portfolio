@@ -1,0 +1,11 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        BLOG_REPO: ${BLOG_REPO:-https://github.com/EmilioBlacksmith/blog.git}
+        BLOG_REPO_TOKEN: ${BLOG_REPO_TOKEN:-}
+    image: emilioherrera
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

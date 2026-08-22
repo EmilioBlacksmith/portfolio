@@ -66,6 +66,134 @@ body {
   }
 }
 
+@layer components {
+  .blog-prose {
+    color: var(--color-ash);
+  }
+
+  .blog-prose > * + * {
+    margin-top: 1.25em;
+  }
+
+  .blog-prose h1,
+  .blog-prose h2,
+  .blog-prose h3,
+  .blog-prose h4 {
+    color: var(--color-bone);
+    font-family: var(--font-grotesk);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .blog-prose h2 {
+    margin-top: 2em;
+    font-size: 1.5rem;
+  }
+
+  .blog-prose h3 {
+    margin-top: 1.75em;
+    font-size: 1.25rem;
+  }
+
+  .blog-prose h4 {
+    margin-top: 1.5em;
+    font-size: 1.1rem;
+  }
+
+  .blog-prose a {
+    color: var(--color-steel);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(34, 211, 238, 0.4);
+    transition: text-decoration-color 150ms ease;
+  }
+
+  .blog-prose a:hover {
+    text-decoration-color: var(--color-steel);
+  }
+
+  .blog-prose ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .blog-prose ul li {
+    position: relative;
+    padding-left: 1.4em;
+  }
+
+  .blog-prose ul li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: var(--color-steel);
+    font-family: var(--font-geist-mono);
+    font-size: 0.9em;
+  }
+
+  .blog-prose ol {
+    list-style: decimal;
+    padding-left: 1.4em;
+  }
+
+  .blog-prose ol li::marker {
+    color: var(--color-steel);
+    font-family: var(--font-geist-mono);
+  }
+
+  .blog-prose blockquote {
+    border-left: 2px solid var(--color-steel);
+    padding-left: 1.25em;
+    color: var(--color-faint);
+    font-style: italic;
+  }
+
+  .blog-prose code {
+    font-family: var(--font-geist-mono);
+    font-size: 0.85em;
+    color: var(--color-steel);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+  }
+
+  .blog-prose pre {
+    overflow-x: auto;
+    background: var(--color-panel);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.25em;
+    border-radius: 6px;
+  }
+
+  .blog-prose pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--color-bone);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .blog-prose img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    background: var(--color-panel);
+  }
+
+  .blog-prose hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .blog-prose strong {
+    color: var(--color-bone);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

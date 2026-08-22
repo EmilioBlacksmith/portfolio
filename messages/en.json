@@ -8,10 +8,11 @@
     "about": "ABOUT",
     "contact": "CONTACT",
     "language": "Language",
-    "menu": "menu"
+    "menu": "menu",
+    "blog": "BLOG"
   },
   "hero": {
-    "helloCard": "Hey, I'm Emilio — the Blacksmith. Product engineer and indie dev in <mexico>Mexico</mexico>, currently shipping AI-driven features <finsphera>@ Finsphera</finsphera>.",
+    "helloCard": "Hey, I'm Emilio Herrera (Blacksmith if you translate it to english). Product engineer and indie dev in <mexico>Mexico</mexico>, currently shipping AI-driven features <finsphera>@ Finsphera</finsphera>.",
     "loadingModel": "loading model",
     "sceneNote": "The 3D model in the scene is one of my own projects."
   },
@@ -29,6 +30,13 @@
     "label": "contact",
     "github": "github",
     "linkedin": "linkedin"
+  },
+  "blog": {
+    "title": "THE JOURNAL",
+    "description": "Field notes from the forge — engineering, craft, and the occasional hot take, written in markdown.",
+    "empty": "no entries yet — the forge is cold. come back later.",
+    "minRead": "min read",
+    "backToTop": "back to top"
   },
   "projects": {
     "latest": "latest",

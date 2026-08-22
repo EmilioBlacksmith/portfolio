@@ -44,11 +44,13 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
-export function MobileMenu() {
+export function MobileMenu({ base = "" }: { base?: string }) {
   const t = useTranslations("nav");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const close = () => setOpen(false);
+  const resolveHref = (href: string) =>
+    href.startsWith("/") ? href : `${base}${href}`;
 
   useEffect(() => {
     if (!open) return;
@@ -101,7 +103,7 @@ export function MobileMenu() {
           {NAV.map((item) => (
             <a
               key={item.index}
-              href={item.href}
+              href={resolveHref(item.href)}
               onClick={close}
               className="group flex flex-col items-center justify-center gap-1 rounded-md border border-white/10 bg-ink/60 px-1 py-3 text-center transition-colors hover:border-steel/50 hover:text-bone focus-visible:text-bone active:opacity-70"
             >

@@ -5,7 +5,15 @@ import { MobileMenu } from "./mobile-menu";
 import { ScrollScrim } from "./scroll-scrim";
 import { NAV } from "@/data/nav";
 
-export async function Header() {
+function resolveHref(href: string, base: string): string {
+  return href.startsWith("/") ? href : `${base}${href}`;
+}
+
+export async function Header({
+  base = "",
+}: {
+  base?: string;
+}) {
   const t = await getTranslations("nav");
 
   return (
@@ -17,7 +25,7 @@ export async function Header() {
           {NAV.map((item) => (
             <a
               key={item.index}
-              href={item.href}
+              href={resolveHref(item.href, base)}
               className="group flex items-baseline gap-1.5 px-1 py-2 font-mono text-[11px] font-medium tracking-[0.18em] text-ash uppercase transition-colors hover:text-bone focus-visible:text-bone active:opacity-70"
             >
               <span className="text-[9px] text-faint">[{item.index}]</span>
@@ -32,7 +40,7 @@ export async function Header() {
           <LanguageSwitcher />
         </nav>
 
-        <MobileMenu />
+        <MobileMenu base={base} />
       </div>
     </ScrollScrim>
   );

@@ -8,10 +8,11 @@
     "about": "SOBRE MÍ",
     "contact": "CONTACTO",
     "language": "Idioma",
-    "menu": "menú"
+    "menu": "menú",
+    "blog": "BLOG"
   },
   "hero": {
-    "helloCard": "¡Hey! Soy Emilio — the Blacksmith. Product engineer y desarrollador indie en <mexico>México</mexico>, actualmente construyendo funciones de IA <finsphera>@ Finsphera</finsphera>.",
+    "helloCard": "Hola, soy Emilio Herrera (Blacksmith en ingles). Product engineer y desarrollador indie en <mexico>México</mexico>, actualmente construyendo funciones de IA <finsphera>@ Finsphera</finsphera>.",
     "loadingModel": "cargando modelo",
     "sceneNote": "El modelo 3D de la escena es uno de mis proyectos."
   },
@@ -29,6 +30,13 @@
     "label": "contacto",
     "github": "github",
     "linkedin": "linkedin"
+  },
+  "blog": {
+    "title": "EL DIARIO",
+    "description": "Notas de campo desde la forja — ingeniería, oficio y el chisme ocasional, escritas en markdown.",
+    "empty": "aún no hay entradas — la forja está fría. vuelve más tarde.",
+    "minRead": "min de lectura",
+    "backToTop": "volver arriba"
   },
   "projects": {
     "latest": "reciente",
