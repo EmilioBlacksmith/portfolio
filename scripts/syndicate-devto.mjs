@@ -160,6 +160,7 @@ async function main() {
           published: publish,
           body_markdown: convertWikiLinks(content.trim()),
           canonical_url: canonical,
+          cover_image: data.cover ? resolveAsset(data.cover) : undefined,
           description: data.description,
           tags: (data.tags ?? []).slice(0, 4).map((t) => t.replace(/\s+/g, "-")),
         },
