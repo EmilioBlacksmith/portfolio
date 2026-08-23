@@ -57,20 +57,34 @@ function canonicalUrl(locale, slug) {
     : `${SITE_URL}/${locale}/blog/${slug}`;
 }
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function devto(pathname, method, key, body) {
-  const res = await fetch(`${API_BASE}${pathname}`, {
-    method,
-    headers: {
-      "api-key": key,
-      ...(body ? { "Content-Type": "application/json" } : {}),
-    },
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  if (!res.ok) {
+  const maxAttempts = 5;
+  let delay = 2000;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const res = await fetch(`${API_BASE}${pathname}`, {
+      method,
+      headers: {
+        "api-key": key,
+        ...(body ? { "Content-Type": "application/json" } : {}),
+      },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    if (res.ok) return res.json();
+    if (res.status === 429 || res.status >= 500) {
+      const retryAfter = Number(res.headers.get("retry-after")) || delay;
+      console.warn(
+        `Dev.to ${method} ${pathname} → ${res.status}, retrying in ${retryAfter}s (${attempt}/${maxAttempts})`
+      );
+      await sleep(retryAfter * 1000);
+      delay *= 2;
+      continue;
+    }
     const text = await res.text();
     throw new Error(`Dev.to ${method} ${pathname} → ${res.status}: ${text}`);
   }
-  return res.json();
+  throw new Error(`Dev.to ${method} ${pathname}: rate limited after ${maxAttempts} attempts`);
 }
 
 async function findExisting(key) {
@@ -86,7 +100,13 @@ async function findExisting(key) {
   const byCanonical = new Map();
   for (const article of lists.flat()) {
     if (article.canonical_url) {
-      byCanonical.set(article.canonical_url, { id: article.id, url: article.url });
+      byCanonical.set(article.canonical_url, {
+        id: article.id,
+        url: article.url,
+        body: article.body_markdown,
+        title: article.title,
+        description: article.description,
+      });
     }
   }
   return byCanonical;
@@ -147,6 +167,15 @@ async function main() {
 
       const remote = existing.get(canonical);
       if (remote) {
+        const same =
+          remote.body === payload.article.body_markdown &&
+          remote.title === payload.article.title &&
+          remote.description === payload.article.description;
+        if (same) {
+          console.log(`up to date ${stateKey}`);
+          state[stateKey] = remote;
+          continue;
+        }
         console.log(`updating ${stateKey} → ${API_BASE}/articles/${remote.id}`);
         await devto(`/articles/${remote.id}`, "PUT", key, payload);
         state[stateKey] = remote;
