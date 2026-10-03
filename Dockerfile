@@ -22,12 +22,14 @@ COPY . .
 # The blog vault (EmilioBlacksmith/blog) is private. Railway does not expose
 # service variables to a Dockerfile build unless a matching ARG is declared, so
 # BLOG_REPO_TOKEN must be set as a service variable (or passed via --build-arg).
-# It is used only in this build stage and never copied into the final runner.
+# The token is read with printenv (never written as "$BLOG_REPO_TOKEN") so
+# Docker does not substitute it into the logged RUN command. It is used only in
+# this build stage and never copied into the final runner.
 ARG BLOG_REPO=https://github.com/EmilioBlacksmith/blog.git
 ARG BLOG_REPO_TOKEN
 RUN apk add --no-cache git \
- && if [ -n "$BLOG_REPO_TOKEN" ]; then \
-      clone_url="https://x-access-token:${BLOG_REPO_TOKEN}@${BLOG_REPO#https://}"; \
+ && if [ -n "$(printenv BLOG_REPO_TOKEN)" ]; then \
+      clone_url="https://EmilioBlacksmith:$(printenv BLOG_REPO_TOKEN)@${BLOG_REPO#https://}"; \
     else \
       clone_url="$BLOG_REPO"; \
     fi \
@@ -50,8 +52,8 @@ ARG BLOG_REPO=https://github.com/EmilioBlacksmith/blog.git
 ARG BLOG_REPO_TOKEN
 
 RUN apk add --no-cache git \
- && if [ -n "$BLOG_REPO_TOKEN" ]; then \
-      clone_url="https://x-access-token:${BLOG_REPO_TOKEN}@${BLOG_REPO#https://}"; \
+ && if [ -n "$(printenv BLOG_REPO_TOKEN)" ]; then \
+      clone_url="https://EmilioBlacksmith:$(printenv BLOG_REPO_TOKEN)@${BLOG_REPO#https://}"; \
     else \
       clone_url="$BLOG_REPO"; \
     fi \

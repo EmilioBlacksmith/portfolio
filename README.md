@@ -211,10 +211,29 @@ Railway **service variable**:
 
 1. Open the service (repeat for `web` and `syndicate` if both are deployed).
 2. **Variables → New Variable**:
-   - `BLOG_REPO_TOKEN` = fine-grained PAT with `Contents: Read` on
-     `EmilioBlacksmith/blog`
+   - `BLOG_REPO_TOKEN` = fine-grained PAT for `EmilioBlacksmith/blog`
    - `BLOG_REPO` *(optional)* = `https://github.com/EmilioBlacksmith/blog.git`
 3. Redeploy so the builder stage reruns.
+
+The fine-grained PAT must be configured as:
+
+- **Resource owner:** `EmilioBlacksmith` (a user account, not an org)
+- **Repository access:** Only select repositories → `EmilioBlacksmith/blog`
+  (do **not** leave the default "Public repositories")
+- **Repository permissions → Contents:** Read-only
+- **Account permissions:** none
+
+A `403 Write access to repository not granted` during the clone means the
+token authenticates but is not authorized for that repo — almost always
+"Repository access" was left on Public repositories or Contents wasn't granted.
+Verify a token before redeploying (without echoing it to your shell history):
+
+```bash
+read -rs TOKEN
+GIT_TERMINAL_PROMPT=0 git ls-remote \
+  "https://EmilioBlacksmith:${TOKEN}@github.com/EmilioBlacksmith/blog.git" HEAD
+unset TOKEN
+```
 
 The name must match the `ARG` exactly (case-sensitive). A *shared* variable
 also has to be referenced by the service (`${{shared.BLOG_REPO_TOKEN}}`) to be
