@@ -202,6 +202,28 @@ No runtime env vars required — the image is self-contained. The only
 build-time secret is the blog repo PAT (omit `BLOG_REPO_TOKEN` if the vault
 repo ever becomes publicly readable).
 
+### RAILWAY
+
+Railway does **not** read a local `.env` file, and a Dockerfile build does
+**not** inherit service variables unless the Dockerfile declares a matching
+`ARG` (it does: `ARG BLOG_REPO_TOKEN`). So the PAT must be defined as a
+Railway **service variable**:
+
+1. Open the service (repeat for `web` and `syndicate` if both are deployed).
+2. **Variables → New Variable**:
+   - `BLOG_REPO_TOKEN` = fine-grained PAT with `Contents: Read` on
+     `EmilioBlacksmith/blog`
+   - `BLOG_REPO` *(optional)* = `https://github.com/EmilioBlacksmith/blog.git`
+3. Redeploy so the builder stage reruns.
+
+The name must match the `ARG` exactly (case-sensitive). A *shared* variable
+also has to be referenced by the service (`${{shared.BLOG_REPO_TOKEN}}`) to be
+injected — adding it to the service directly is simplest.
+
+If the token is missing, the build now stops with an explicit
+`ERROR: could not clone ...` message instead of git's
+`could not read Username` prompt.
+
 ## DEPLOY NOTES
 
 - Site config (domain, socials, taglines) lives in one file: `lib/site.ts`. Buying the `.com` later? Change one string and redeploy.
