@@ -9,7 +9,8 @@
     "contact": "CONTACTO",
     "language": "Idioma",
     "menu": "menú",
-    "blog": "BLOG"
+    "blog": "BLOG",
+    "status": "ESTADO"
   },
   "hero": {
     "helloCard": "Hola, soy Emilio Herrera (Blacksmith en ingles). Product engineer y desarrollador indie en <mexico>México</mexico>, actualmente construyendo funciones de IA <finsphera>@ Finsphera</finsphera>.",
@@ -69,5 +70,18 @@
   },
   "a11y": {
     "skipToContent": "Saltar al contenido"
+  },
+  "status": {
+    "label": "estado",
+    "title": "ESTADO DEL SISTEMA",
+    "description": "Disponibilidad en vivo de los servicios que opero. Se verifica al solicitar y se actualiza cada 30 segundos.",
+    "operational": "todos los sistemas operativos",
+    "degraded": "rendimiento degradado",
+    "up": "activo",
+    "down": "caído",
+    "response": "respuesta",
+    "lastChecked": "última verificación",
+    "refreshing": "actualizando…",
+    "autoRefresh": "auto-refresh 30s"
   }
 }

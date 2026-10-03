@@ -1,0 +1,23 @@
+name: Status check
+
+on:
+  schedule:
+    # Hourly to stay well within GitHub Actions' private-repo free minutes.
+    # A dedicated monitor (UptimeRobot/Better Stack) is better for 1–5 min checks.
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check service status
+        run: |
+          body="$(curl -fsS --max-time 30 https://emilioherrera.site/api/status)"
+          echo "$body" | jq .
+          if [ "$(echo "$body" | jq -r '.status')" != "operational" ]; then
+            echo "::error::One or more services are not operational"
+            exit 1
+          fi

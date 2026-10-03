@@ -270,6 +270,11 @@ If the token is missing, the build now stops with an explicit
 - **A11y & extras** — skip-to-content link (localized), a web app manifest
   (`app/manifest.ts`), `.well-known/security.txt`, and `poweredByHeader: false`
   so the framework header isn't exposed.
+- **Status page** — `/status` checks the services listed in `lib/status.ts`
+  live (server-side, 5s timeout) and refreshes every 30s; `/api/status` returns
+  the JSON report. `.github/workflows/status-check.yml` polls it hourly and
+  fails the workflow (→ GitHub notification) when any service is down. Add
+  services to `SERVICES` in `lib/status.ts`.
 - **Health check** — `GET /api/health` returns `{ "status": "ok" }` with
   `no-store`. Point Railway's healthcheck at it (service Settings → Deploy →
   Healthcheck Path → `/api/health`) so a broken deploy is caught before traffic.

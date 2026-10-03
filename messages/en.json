@@ -9,7 +9,8 @@
     "contact": "CONTACT",
     "language": "Language",
     "menu": "menu",
-    "blog": "BLOG"
+    "blog": "BLOG",
+    "status": "STATUS"
   },
   "hero": {
     "helloCard": "Hey, I'm Emilio Herrera (Blacksmith if you translate it to english). Product engineer and indie dev in <mexico>Mexico</mexico>, currently shipping AI-driven features <finsphera>@ Finsphera</finsphera>.",
@@ -69,5 +70,18 @@
   },
   "a11y": {
     "skipToContent": "Skip to content"
+  },
+  "status": {
+    "label": "status",
+    "title": "SYSTEM STATUS",
+    "description": "Live availability for the services I run. Checked on request and refreshed every 30 seconds.",
+    "operational": "all systems operational",
+    "degraded": "degraded performance",
+    "up": "up",
+    "down": "down",
+    "response": "response",
+    "lastChecked": "last checked",
+    "refreshing": "refreshing…",
+    "autoRefresh": "auto-refresh 30s"
   }
 }
