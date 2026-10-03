@@ -5,7 +5,7 @@ import { locales } from "@/i18n/navigation";
 import { Header } from "@/app/components/header";
 import { JsonLd } from "@/app/components/json-ld";
 import { getPost, getPosts, resolveAsset } from "@/lib/blog";
-import { SITE } from "@/lib/site";
+import { RSS_ALTERNATES, SITE } from "@/lib/site";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -24,6 +24,7 @@ export async function generateMetadata({
     description: post.frontmatter.description,
     alternates: {
       canonical: `/blog/${post.slug}`,
+      types: RSS_ALTERNATES,
     },
     openGraph: {
       type: "article",

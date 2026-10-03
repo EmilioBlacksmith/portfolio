@@ -6,11 +6,13 @@ import { About } from "@/app/components/about";
 import { LatestPosts } from "@/app/components/latest-posts";
 import { Contact } from "@/app/components/contact";
 import { getProfile, getProjects } from "@/data";
+import { RSS_ALTERNATES } from "@/lib/site";
 
 export async function generateMetadata() {
   return {
     alternates: {
       canonical: "/",
+      types: RSS_ALTERNATES,
     },
   };
 }

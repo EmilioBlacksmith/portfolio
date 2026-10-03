@@ -1,50 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { marked } from "marked";
 import { locales } from "@/i18n/navigation";
 import type { Post, PostFrontmatter } from "@/lib/blog-types";
+import { readingTime, renderMarkdown } from "./markdown";
+
+export { resolveAsset } from "./markdown";
 
 const BLOG_DIR = path.join(process.cwd(), "blog");
-
-marked.use({ gfm: true, breaks: false });
-
-const WORDS_PER_MINUTE = 200;
-const IMAGE_EMBED = /!\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g;
-const WIKILINK = /\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g;
-const IMAGE_EXT = /\.(png|jpe?g|gif|webp|avif|svg)$/i;
-
-export function resolveAsset(src: string): string {
-  if (/^(https?:)?\/\//.test(src) || src.startsWith("/")) return src;
-  return `/blog/${src}`;
-}
-
-function readingTime(markdown: string): number {
-  const words = markdown.trim().split(/\s+/).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
-}
-
-function convertWikiLinks(markdown: string): string {
-  const withEmbeds = markdown.replace(
-    IMAGE_EMBED,
-    (_, src: string, alt?: string) => {
-      const path = src.trim();
-      const altText = (alt ?? "").trim() || path.split("/").pop() || "image";
-      return `![${altText.replace(/"/g, "")}](${resolveAsset(path)})`;
-    }
-  );
-
-  return withEmbeds.replace(WIKILINK, (match, src: string, alt?: string) => {
-    const path = src.trim();
-    if (!IMAGE_EXT.test(path)) return match;
-    const text = (alt ?? "").trim() || path.split("/").pop() || path;
-    return `[${text}](${resolveAsset(path)})`;
-  });
-}
-
-function render(markdown: string): string {
-  return marked.parse(convertWikiLinks(markdown), { async: false }) as string;
-}
 
 function isLocale(value: string): value is (typeof locales)[number] {
   return (locales as readonly string[]).includes(value);
@@ -73,7 +36,7 @@ export function getPosts(locale: string): Post[] {
         locale,
         frontmatter: frontmatter as PostFrontmatter,
         content,
-        html: render(content),
+        html: renderMarkdown(content),
         readingTime: readingTime(content),
       };
     })

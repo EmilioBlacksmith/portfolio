@@ -251,10 +251,22 @@ If the token is missing, the build now stops with an explicit
 
 ## OPERATIONS
 
-- **CI** — `.github/workflows/ci.yml` runs lint, typecheck, and a production
-  build on every push to `main` and every PR. It clones the blog vault with the
-  `BLOG_REPO_TOKEN` secret; when the secret isn't available (e.g. Dependabot
-  PRs) it builds against an empty vault instead of failing.
+- **CI** — `.github/workflows/ci.yml` runs lint, typecheck, unit tests, a
+  production build, and a runtime smoke test (health + home) on every push to
+  `main` and every PR. It clones the blog vault with the `BLOG_REPO_TOKEN`
+  secret; when the secret isn't available (e.g. Dependabot PRs) it builds
+  against an empty vault instead of failing.
+- **Tests** — `npm test` uses Node's built-in runner (no extra dependency).
+  Pure markdown/asset helpers live in `lib/markdown.ts` so they're testable in
+  isolation; `lib/blog.ts` re-exports them.
+- **Performance** — `next.config.ts` serves AVIF/WebP and sets a 1-day
+  `Cache-Control` (with `stale-while-revalidate`) for `/models/*` and
+  `/images/*`. For best results, add matching Cloudflare cache rules for
+  `/_next/static/*`, `/models/*`, and `/images/*` (leave HTML uncached — it
+  varies by locale cookie).
+- **SEO** — RSS is advertised via `alternates.types`; blog posts emit
+  `BlogPosting` JSON-LD; projects emit `CreativeWork` + `BreadcrumbList` and
+  have their own OG image (`app/[locale]/projects/[id]/opengraph-image.tsx`).
 - **Health check** — `GET /api/health` returns `{ "status": "ok" }` with
   `no-store`. Point Railway's healthcheck at it (service Settings → Deploy →
   Healthcheck Path → `/api/health`) so a broken deploy is caught before traffic.

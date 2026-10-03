@@ -4,8 +4,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { locales } from "@/i18n/navigation";
 import { Logo } from "@/app/components/logo";
+import { JsonLd } from "@/app/components/json-ld";
 import { getProjects } from "@/data";
 import type { Project } from "@/data/types";
+import { RSS_ALTERNATES, SITE } from "@/lib/site";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -25,6 +27,7 @@ export async function generateMetadata({
     description: project?.description,
     alternates: {
       canonical: project ? `/projects/${project.id}` : undefined,
+      types: RSS_ALTERNATES,
     },
   };
 }
@@ -42,8 +45,37 @@ export default async function ProjectPage({
   const t = await getTranslations("projects");
   const images = project.projectImgs ?? [];
 
+  const projectUrl = `${SITE.url}/projects/${project.id}`;
+  const homeLabel = locale === "es" ? "Inicio" : "Home";
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    inLanguage: locale,
+    url: projectUrl,
+    dateCreated: String(project.year),
+    keywords: project.techStack.join(", "),
+    author: { "@type": "Person", name: SITE.name, url: SITE.url },
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: homeLabel, item: SITE.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: project.title,
+        item: projectUrl,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-svh">
+      <JsonLd data={projectSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <div className="flex h-16 items-center justify-between px-5 sm:px-8">
         <Logo href="/" />
         <Link

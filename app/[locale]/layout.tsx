@@ -8,7 +8,7 @@ import {
 } from "next-intl/server";
 import "../globals.css";
 import { locales } from "@/i18n/navigation";
-import { SITE } from "@/lib/site";
+import { RSS_ALTERNATES, SITE } from "@/lib/site";
 import { JsonLd } from "@/app/components/json-ld";
 
 const geistSans = Geist({
@@ -74,6 +74,9 @@ export async function generateMetadata({
       template: `%s | ${SITE.name}`,
     },
     description,
+    alternates: {
+      types: RSS_ALTERNATES,
+    },
     applicationName: SITE.name,
     keywords: [
       "Emilio Herrera",

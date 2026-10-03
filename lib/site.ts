@@ -1,3 +1,7 @@
+export const RSS_ALTERNATES: Record<string, string> = {
+  "application/rss+xml": "/feed.xml",
+};
+
 export const SITE = {
   url: "https://emilioherrera.site",
   name: "Emilio Blacksmith",

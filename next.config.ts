@@ -18,13 +18,26 @@ const securityHeaders = [
   },
 ];
 
+const assetCache = [
+  {
+    key: "Cache-Control",
+    value: "public, max-age=86400, stale-while-revalidate=604800",
+  },
+];
+
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
     dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    formats: ["image/avif", "image/webp"],
   },
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      { source: "/models/:path*", headers: assetCache },
+      { source: "/images/:path*", headers: assetCache },
+    ];
   },
 };
 
