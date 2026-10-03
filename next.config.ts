@@ -27,6 +27,7 @@ const assetCache = [
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  poweredByHeader: false,
   images: {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

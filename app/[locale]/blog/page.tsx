@@ -41,7 +41,7 @@ export default async function BlogIndex({
   });
 
   return (
-    <main className="min-h-svh pt-16">
+    <main className="min-h-svh pt-16" id="main-content">
       <Header base="/" />
 
       <div className="mx-auto max-w-[760px] px-5 py-12 sm:px-8">

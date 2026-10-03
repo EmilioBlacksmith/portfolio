@@ -3,7 +3,7 @@ import "./globals.css";
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center bg-ink px-5 text-center">
+    <main className="flex min-h-svh flex-col items-center justify-center bg-ink px-5 text-center" id="main-content">
       <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
         error 404
       </p>

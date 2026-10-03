@@ -24,7 +24,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <Hero />
         <Work projects={getProjects(locale)} />
         <About profile={getProfile(locale)} />

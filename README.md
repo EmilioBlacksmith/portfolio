@@ -267,6 +267,9 @@ If the token is missing, the build now stops with an explicit
 - **SEO** — RSS is advertised via `alternates.types`; blog posts emit
   `BlogPosting` JSON-LD; projects emit `CreativeWork` + `BreadcrumbList` and
   have their own OG image (`app/[locale]/projects/[id]/opengraph-image.tsx`).
+- **A11y & extras** — skip-to-content link (localized), a web app manifest
+  (`app/manifest.ts`), `.well-known/security.txt`, and `poweredByHeader: false`
+  so the framework header isn't exposed.
 - **Health check** — `GET /api/health` returns `{ "status": "ok" }` with
   `no-store`. Point Railway's healthcheck at it (service Settings → Deploy →
   Healthcheck Path → `/api/health`) so a broken deploy is caught before traffic.

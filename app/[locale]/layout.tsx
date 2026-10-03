@@ -117,6 +117,7 @@ export default async function RootLayout({
   const { locale } = await params;
   setRequestLocale(locale);
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: "a11y" });
 
   return (
     <html
@@ -124,6 +125,12 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink text-bone">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-white/20 focus:bg-ink focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-bone"
+        >
+          {t("skipToContent")}
+        </a>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

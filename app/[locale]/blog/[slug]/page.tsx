@@ -72,7 +72,7 @@ export default async function BlogPost({
   };
 
   return (
-    <main id="top" className="min-h-svh pt-16">
+    <main id="main-content" className="min-h-svh pt-16">
       <Header base="/" />
       <JsonLd data={articleSchema} />
 
@@ -122,7 +122,7 @@ export default async function BlogPost({
         <footer className="mt-12 border-t border-white/10 pt-6">
           <div className="flex justify-end">
             <a
-              href="#top"
+              href="#main-content"
               className="font-mono text-[11px] tracking-[0.15em] text-ash uppercase transition-colors hover:text-bone focus-visible:text-bone"
             >
               {t("backToTop")} <span className="text-steel">^</span>

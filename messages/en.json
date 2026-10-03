@@ -66,5 +66,8 @@
     "body": "The page hit a snag on the anvil. Try again, or head back home.",
     "cta": "try again",
     "home": "return home"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
   }
 }

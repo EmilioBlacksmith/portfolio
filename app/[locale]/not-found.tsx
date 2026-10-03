@@ -13,7 +13,7 @@ export default async function NotFound() {
   const t = await getTranslations("notFound");
 
   return (
-    <main className="flex min-h-svh flex-col">
+    <main className="flex min-h-svh flex-col" id="main-content">
       <div className="flex h-16 items-center justify-between px-5 sm:px-8">
         <Logo href="/" />
       </div>

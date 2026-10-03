@@ -73,7 +73,7 @@ export default async function ProjectPage({
   };
 
   return (
-    <main className="min-h-svh">
+    <main className="min-h-svh" id="main-content">
       <JsonLd data={projectSchema} />
       <JsonLd data={breadcrumbSchema} />
       <div className="flex h-16 items-center justify-between px-5 sm:px-8">

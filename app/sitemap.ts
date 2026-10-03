@@ -7,20 +7,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const projects = getProjects("en");
   const posts = getPosts("en");
 
+  const now = new Date();
+
   return [
     {
       url: SITE.url,
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: `${SITE.url}/blog`,
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     ...projects.map(
       (project): MetadataRoute.Sitemap[number] => ({
         url: `${SITE.url}/projects/${project.id}`,
+        lastModified: new Date(`${project.year}-01-01T00:00:00.000Z`),
         changeFrequency: "monthly",
         priority: 0.8,
       })

@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { AsciiArt } from "./ascii-art";
 import { ART_FACE } from "@/data/ascii-art";
+import { SITE } from "@/lib/site";
 import type { Profile } from "@/data/types";
 
 export async function Contact({ profile }: { profile: Profile }) {
@@ -14,8 +15,8 @@ export async function Contact({ profile }: { profile: Profile }) {
           [04] {t("label")}
         </p>
         <a
-          href="mailto:emilioblacksmithlush@gmail.com"
-          aria-label="emilioblacksmithlush@gmail.com"
+          href={`mailto:${SITE.email}`}
+          aria-label={SITE.email}
           className="mt-6 inline-block break-all font-display text-[clamp(1.4rem,6vw,3.75rem)] font-bold tracking-tight text-bone transition-colors hover:text-steel focus-visible:text-steel"
         >
           emilio@blacksmith:~$

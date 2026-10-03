@@ -66,5 +66,8 @@
     "body": "La página tropezó en el yunque. Inténtalo de nuevo o vuelve al inicio.",
     "cta": "intentar de nuevo",
     "home": "volver al inicio"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido"
   }
 }

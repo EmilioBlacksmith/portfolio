@@ -19,7 +19,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center px-5 text-center">
+    <main className="flex min-h-svh flex-col items-center justify-center px-5 text-center" id="main-content">
       <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-faint">
         {t("meta")}
       </p>
