@@ -59,5 +59,12 @@
     "title": "LOST IN THE FORGE",
     "body": "This page was consumed by the fire. It never made it past the anvil.",
     "cta": "return home"
+  },
+  "error": {
+    "meta": "something cracked",
+    "title": "SOMETHING BROKE IN THE FORGE",
+    "body": "The page hit a snag on the anvil. Try again, or head back home.",
+    "cta": "try again",
+    "home": "return home"
   }
 }

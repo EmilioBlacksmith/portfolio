@@ -59,5 +59,12 @@
     "title": "PERDIDO EN LA FORJA",
     "body": "Esta página fue consumida por el fuego. Nunca pasó del yunque.",
     "cta": "volver al inicio"
+  },
+  "error": {
+    "meta": "algo se quebró",
+    "title": "ALGO SE ROMPIÓ EN LA FORJA",
+    "body": "La página tropezó en el yunque. Inténtalo de nuevo o vuelve al inicio.",
+    "cta": "intentar de nuevo",
+    "home": "volver al inicio"
   }
 }

@@ -249,6 +249,40 @@ If the token is missing, the build now stops with an explicit
 - Terminate TLS at your reverse proxy (Caddy / nginx / traefik) — the SEO metadata is HTTPS.
 - `robots.txt`, `sitemap.xml`, and the OG image are generated at build time against `lib/site.ts`.
 
+## OPERATIONS
+
+- **CI** — `.github/workflows/ci.yml` runs lint, typecheck, and a production
+  build on every push to `main` and every PR. It clones the blog vault with the
+  `BLOG_REPO_TOKEN` secret; when the secret isn't available (e.g. Dependabot
+  PRs) it builds against an empty vault instead of failing.
+- **Health check** — `GET /api/health` returns `{ "status": "ok" }` with
+  `no-store`. Point Railway's healthcheck at it (service Settings → Deploy →
+  Healthcheck Path → `/api/health`) so a broken deploy is caught before traffic.
+- **Rollback** — Railway → Deployments → pick the last good deployment →
+  Redeploy. Images are retained per plan (Hobby 72h).
+- **Error handling** — `app/global-error.tsx` (last-resort) and
+  `app/[locale]/error.tsx` (retry + home) catch render errors and give generic
+  ref digests instead of a blank screen.
+- **Security headers** — set centrally in `next.config.ts` (nosniff,
+  frame-ancestors, HSTS, referrer/permissions policies).
+- **Dependency updates** — `.github/dependabot.yml` opens grouped npm and
+  GitHub Actions PRs weekly.
+
+### Runbook: site is down
+
+1. Check the Railway deploy status and logs — look for OOM kills or the
+   `ERROR: could not clone` vault message.
+2. Verify `/api/health` responds against the deployment.
+3. If a recent deploy broke it, roll back to the previous deployment.
+4. If it's DNS/TLS, confirm the records in Cloudflare/Namecheap and that Railway
+   shows the green verified check.
+
+### Recommended next steps
+
+- Add error tracking (e.g. Sentry) and uptime monitoring with alerts.
+- Keep the fine-grained `BLOG_REPO_TOKEN` from expiring in both Railway and the
+  GitHub Actions secret.
+
 ## THE VIBE
 
 Dark rooms. Hard edges. Cool steel. Terminal prompts, blinking cursors, and small details that whisper instead of shout.

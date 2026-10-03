@@ -20,13 +20,13 @@ jobs:
       - name: Clone blog vault
         run: |
           git clone --depth 1 \
-            "https://x-access-token:${BLOG_REPO_TOKEN}@${BLOG_REPO#https://}" \
+            "https://EmilioBlacksmith:${BLOG_REPO_TOKEN}@${BLOG_REPO#https://}" \
             /tmp/blog
           mkdir -p blog
           cp -r /tmp/blog/en/. blog/en/
           cp -r /tmp/blog/es/. blog/es/
         env:
-          BLOG_REPO: ${{ vars.BLOG_REPO }}
+          BLOG_REPO: ${{ vars.BLOG_REPO || 'https://github.com/EmilioBlacksmith/blog.git' }}
           BLOG_REPO_TOKEN: ${{ secrets.BLOG_REPO_TOKEN }}
 
       - uses: actions/setup-node@v4
