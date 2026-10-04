@@ -93,7 +93,7 @@ export function UptimeBar({
 
       <pre
         aria-hidden="true"
-        className={`mt-3 flex flex-wrap font-mono leading-none tracking-[0.08em] select-none ${
+        className={`mt-3 flex w-full font-mono leading-none select-none ${
           compact ? "text-[10px]" : "text-xs sm:text-sm"
         }`}
       >
@@ -101,7 +101,9 @@ export function UptimeBar({
           <span
             key={i}
             title={tooltipFor(bucket)}
-            className={`cursor-help ${toneFor(bucket)} hover:brightness-150`}
+            className={`flex-1 cursor-help overflow-hidden text-center ${toneFor(
+              bucket
+            )} hover:brightness-150`}
           >
             {glyphFor(bucket)}
           </span>
