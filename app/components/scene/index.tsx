@@ -9,9 +9,6 @@ import { SceneLights } from "./lights";
 import { ShieldWithFallback } from "./model";
 import { SCENE_CONFIG } from "./config";
 
-const MAX_FPS = 30;
-const FRAME_INTERVAL = 1 / MAX_FPS;
-
 function LoadOverlay({ label }: { label: string }) {
   const { active, progress } = useProgress();
   if (!active) return null;
@@ -43,7 +40,6 @@ function RotatingGroup({
   const reduceMotion = useRef(false);
   const visible = useRef(true);
   const hidden = useRef(false);
-  const accumulator = useRef(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -83,24 +79,18 @@ function RotatingGroup({
     if (reduceMotion.current || !visible.current || hidden.current) return;
     if (!ref.current) return;
 
-    // Throttle to MAX_FPS; skip frames until the accumulated time is enough.
-    accumulator.current += delta;
-    if (accumulator.current < FRAME_INTERVAL) return;
-    const step = accumulator.current;
-    accumulator.current = 0;
-
     const { clock } = state;
     ref.current.rotation.y = THREE.MathUtils.damp(
       ref.current.rotation.y,
       clock.elapsedTime * 0.5,
       2,
-      step
+      delta
     );
     ref.current.rotation.x = THREE.MathUtils.damp(
       ref.current.rotation.x,
       Math.sin(clock.elapsedTime * 0.4) * 0.15,
       2,
-      step
+      delta
     );
   });
 
@@ -117,7 +107,7 @@ export default function Scene({ label }: { label: string }) {
         shadows
         dpr={SCENE_CONFIG.render.dpr}
         camera={SCENE_CONFIG.camera}
-        gl={{ antialias: SCENE_CONFIG.render.antialias, alpha: true, powerPreference: "low-power" }}
+        gl={{ antialias: SCENE_CONFIG.render.antialias, alpha: true }}
       >
         <IsoCamera />
         <SceneLights />

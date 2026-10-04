@@ -32,7 +32,7 @@ export const SCENE_CONFIG = {
   },
   render: {
     // Fill-rate is the main cost on low-end mobile; cap the device pixel ratio.
-    dpr: [1, 1.5] as [number, number],
+    dpr: [1, 1.75] as [number, number],
     antialias: true,
   },
   lights: {
