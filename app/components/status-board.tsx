@@ -1,12 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import type { StatusReport } from "@/lib/status";
 import type { HistoryReport } from "@/lib/status-history";
 import { UptimeBar } from "./uptime-bar";
 
 const REFRESH_MS = 30_000;
+
+const emptySubscribe = () => () => {};
+
+/** Visitor's timezone after hydration, null during SSR/first render. */
+function useClientTimeZone(): string | null {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
+    () => null
+  );
+}
+
+/**
+ * Formats an ISO timestamp in the visitor's local timezone. Returns null until
+ * the timezone is known, so callers fall back to the server-rendered UTC slice
+ * and hydration stays consistent.
+ */
+function useLocalTime(iso: string): string | null {
+  const zone = useClientTimeZone();
+  if (!zone) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return new Intl.DateTimeFormat(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+    timeZone: zone,
+  }).format(d);
+}
 
 function StatusDot({ up }: { up: boolean }) {
   return (
@@ -33,6 +63,7 @@ export function StatusBoard({
   const t = useTranslations("status");
   const [report, setReport] = useState(initial);
   const [refreshing, setRefreshing] = useState(false);
+  const checkedAtLocal = useLocalTime(report.checkedAt);
 
   useEffect(() => {
     let cancelled = false;
@@ -130,9 +161,14 @@ export function StatusBoard({
 
       <p className="flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-wider text-faint">
         <span>
-          {t("lastChecked")} {report.checkedAt.slice(11, 19)} UTC
+          {t("lastChecked")}{" "}
+          {checkedAtLocal ?? `${report.checkedAt.slice(11, 19)} UTC`}
         </span>
-        <span>{refreshing ? t("refreshing") : t("autoRefresh")}</span>
+        <span>
+          {refreshing ? t("refreshing") : t("liveRefresh")}
+          {" · "}
+          {t("sampledHourly")}
+        </span>
       </p>
     </div>
   );

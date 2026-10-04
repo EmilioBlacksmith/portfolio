@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import type { Bucket, ServiceHistory } from "@/lib/status-history";
 
@@ -23,30 +24,79 @@ function toneFor(bucket: Bucket): string {
   return "text-emerald-400";
 }
 
-function formatHour(iso: string): string {
+/** UTC hour label, for the server-rendered axis. */
+function formatHourUtc(iso: string): string {
   const d = new Date(iso);
   return `${String(d.getUTCHours()).padStart(2, "0")}:00`;
 }
 
-/** "Aug 23, 14:00 UTC" for a date that may be on a different day than today. */
-function formatStamp(iso: string): string {
-  const d = new Date(iso);
-  const day = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(d);
-  return `${day}, ${formatHour(iso)} UTC`;
+const emptySubscribe = () => () => {};
+
+/**
+ * The visitor's timezone, or null during SSR/first render. useSyncExternalStore
+ * returns the server snapshot (null) for hydration and the client snapshot
+ * afterwards, which avoids both a hydration mismatch and a setState-in-effect.
+ */
+function useClientTimeZone(): string | null {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
+    () => null
+  );
 }
 
-function tooltipFor(bucket: Bucket): string {
+function useLocalFormat() {
+  const zone = useClientTimeZone();
+
+  const hour = useCallback(
+    (iso: string): string | null => {
+      if (!zone) return null;
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return null;
+      return new Intl.DateTimeFormat(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZone: zone,
+      }).format(d);
+    },
+    [zone]
+  );
+
+  const stamp = useCallback(
+    (iso: string): string | null => {
+      if (!zone) return null;
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return null;
+      const formatted = new Intl.DateTimeFormat(undefined, {
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZone: zone,
+      }).format(d);
+      return `${formatted} ${zone}`;
+    },
+    [zone]
+  );
+
+  return { zone, hour, stamp };
+}
+
+function tooltipFor(
+  bucket: Bucket,
+  fmt: ReturnType<typeof useLocalFormat>
+): string {
+  const when =
+    fmt.stamp(bucket.start) ?? `${formatHourUtc(bucket.start)} UTC`;
   if (bucket.total === 0 || bucket.ratio === null) {
-    return `${formatStamp(bucket.start)} — no data`;
+    return `${when} — no data`;
   }
   const pct = Math.round((bucket.ratio ?? 0) * 100);
   const suffix =
     bucket.avgResponseMs === null ? "" : `, ${bucket.avgResponseMs} ms avg`;
-  return `${formatStamp(bucket.start)} — ${pct}% up (${bucket.up}/${bucket.total})${suffix}`;
+  return `${when} — ${pct}% up (${bucket.up}/${bucket.total})${suffix}`;
 }
 
 export function UptimeBar({
@@ -58,6 +108,10 @@ export function UptimeBar({
 }) {
   const t = useTranslations("status");
   const buckets = history.buckets;
+  const [active, setActive] = useState<number | null>(null);
+  const fmt = useLocalFormat();
+  const first = buckets.length > 0 ? buckets[0].start : null;
+  const last = buckets.length > 0 ? buckets[buckets.length - 1].start : null;
 
   return (
     <div>
@@ -91,27 +145,47 @@ export function UptimeBar({
         </div>
       </div>
 
-      <pre
-        aria-hidden="true"
-        className={`mt-3 flex w-full font-mono leading-none select-none ${
-          compact ? "text-[10px]" : "text-xs sm:text-sm"
-        }`}
-      >
-        {buckets.map((bucket, i) => (
-          <span
-            key={i}
-            title={tooltipFor(bucket)}
-            className={`flex-1 cursor-help overflow-hidden text-center ${toneFor(
-              bucket
-            )} hover:brightness-150`}
+      <div className="relative mt-3">
+        <div
+          className={`flex w-full font-mono leading-none ${
+            compact ? "text-[10px]" : "text-xs sm:text-sm"
+          }`}
+        >
+          {buckets.map((bucket, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={tooltipFor(bucket, fmt)}
+              onMouseEnter={() => setActive(i)}
+              onMouseLeave={() => setActive(null)}
+              onFocus={() => setActive(i)}
+              onBlur={() => setActive(null)}
+              className={`flex-1 cursor-help overflow-hidden text-center ${toneFor(
+                bucket
+              )} hover:brightness-150 focus-visible:brightness-150 focus-visible:outline-none`}
+            >
+              {glyphFor(bucket)}
+            </button>
+          ))}
+        </div>
+
+        {active !== null && buckets[active] && (
+          <div
+            role="tooltip"
+            style={{
+              left: `${((active + 0.5) / buckets.length) * 100}%`,
+            }}
+            className="pointer-events-none absolute -top-1 z-20 -translate-x-1/2 -translate-y-full whitespace-nowrap border border-white/15 bg-ink/95 px-3 py-1.5 font-mono text-[10px] tracking-wider text-bone shadow-lg shadow-black/40"
           >
-            {glyphFor(bucket)}
-          </span>
-        ))}
-      </pre>
+            {tooltipFor(buckets[active], fmt)}
+          </div>
+        )}
+      </div>
 
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 font-mono text-[9px] uppercase tracking-wider text-faint">
-        <span>{buckets.length > 0 ? formatHour(buckets[0].start) : ""}</span>
+        <span>
+          {first ? (fmt.hour(first) ?? `${formatHourUtc(first)} UTC`) : ""}
+        </span>
         <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="text-emerald-400">{GLYPH_UP} {t("legendUp")}</span>
           <span className="text-amber-300">{GLYPH_PARTIAL} {t("legendPartial")}</span>
@@ -119,9 +193,7 @@ export function UptimeBar({
           <span className="text-white/30">{GLYPH_EMPTY} {t("legendEmpty")}</span>
         </span>
         <span>
-          {buckets.length > 0
-            ? `${formatHour(buckets[buckets.length - 1].start)} UTC`
-            : ""}
+          {last ? (fmt.hour(last) ?? `${formatHourUtc(last)} UTC`) : ""}
         </span>
       </div>
     </div>

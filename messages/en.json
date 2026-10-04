@@ -82,6 +82,8 @@
     "response": "response",
     "lastChecked": "last checked",
     "refreshing": "refreshing…",
+    "liveRefresh": "live refresh 30s",
+    "sampledHourly": "history sampled hourly",
     "autoRefresh": "auto-refresh 30s",
     "uptime": "uptime",
     "avgResponse": "avg",
