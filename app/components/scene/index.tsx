@@ -9,6 +9,9 @@ import { SceneLights } from "./lights";
 import { ShieldWithFallback } from "./model";
 import { SCENE_CONFIG } from "./config";
 
+const MAX_FPS = 30;
+const FRAME_INTERVAL = 1 / MAX_FPS;
+
 function LoadOverlay({ label }: { label: string }) {
   const { active, progress } = useProgress();
   if (!active) return null;
@@ -29,9 +32,18 @@ function LoadOverlay({ label }: { label: string }) {
   );
 }
 
-function RotatingGroup({ children }: { children: ReactNode }) {
+function RotatingGroup({
+  children,
+  containerRef,
+}: {
+  children: ReactNode;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+}) {
   const ref = useRef<THREE.Group>(null);
   const reduceMotion = useRef(false);
+  const visible = useRef(true);
+  const hidden = useRef(false);
+  const accumulator = useRef(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -43,21 +55,52 @@ function RotatingGroup({ children }: { children: ReactNode }) {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  // Pause the render loop while the hero is off-screen. The scene lives in a
+  // fixed section; once scrolled past, there is no reason to keep animating.
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visible.current = entry.isIntersecting;
+      },
+      { rootMargin: "128px" }
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [containerRef]);
+
+  // Also pause when the tab is hidden.
+  useEffect(() => {
+    const onVisibility = () => {
+      hidden.current = document.hidden;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
   useFrame((state, delta) => {
-    if (reduceMotion.current) return;
-    const { clock } = state;
+    if (reduceMotion.current || !visible.current || hidden.current) return;
     if (!ref.current) return;
+
+    // Throttle to MAX_FPS; skip frames until the accumulated time is enough.
+    accumulator.current += delta;
+    if (accumulator.current < FRAME_INTERVAL) return;
+    const step = accumulator.current;
+    accumulator.current = 0;
+
+    const { clock } = state;
     ref.current.rotation.y = THREE.MathUtils.damp(
       ref.current.rotation.y,
       clock.elapsedTime * 0.5,
       2,
-      delta
+      step
     );
     ref.current.rotation.x = THREE.MathUtils.damp(
       ref.current.rotation.x,
       Math.sin(clock.elapsedTime * 0.4) * 0.15,
       2,
-      delta
+      step
     );
   });
 
@@ -65,18 +108,20 @@ function RotatingGroup({ children }: { children: ReactNode }) {
 }
 
 export default function Scene({ label }: { label: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="absolute inset-0">
+    <div ref={containerRef} className="absolute inset-0">
       <LoadOverlay label={label} />
       <Canvas
         shadows
-        dpr={[1, 2]}
+        dpr={SCENE_CONFIG.render.dpr}
         camera={SCENE_CONFIG.camera}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ antialias: SCENE_CONFIG.render.antialias, alpha: true, powerPreference: "low-power" }}
       >
         <IsoCamera />
         <SceneLights />
-        <RotatingGroup>
+        <RotatingGroup containerRef={containerRef}>
           <group position={[0, SCENE_CONFIG.modelOffsetY, 0]}>
             <Suspense fallback={null}>
               <ShieldWithFallback />
@@ -89,6 +134,8 @@ export default function Scene({ label }: { label: string }) {
           scale={SCENE_CONFIG.shadow.scale}
           blur={SCENE_CONFIG.shadow.blur}
           far={SCENE_CONFIG.shadow.far}
+          resolution={SCENE_CONFIG.shadow.resolution}
+          frames={SCENE_CONFIG.shadow.frames}
           color="#000000"
         />
       </Canvas>

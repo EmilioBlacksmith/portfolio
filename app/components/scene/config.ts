@@ -26,6 +26,14 @@ export const SCENE_CONFIG = {
     scale: 9,
     blur: 2.6,
     far: 3.2,
+    resolution: 512,
+    // ContactShadows frames: 1 = render once (static), Infinity = every frame.
+    frames: 1,
+  },
+  render: {
+    // Fill-rate is the main cost on low-end mobile; cap the device pixel ratio.
+    dpr: [1, 1.5] as [number, number],
+    antialias: true,
   },
   lights: {
     ambient: 0.5,

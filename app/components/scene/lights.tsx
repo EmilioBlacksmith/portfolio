@@ -14,8 +14,8 @@ export function SceneLights() {
         intensity={directional.intensity}
         color={directional.color}
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
         shadow-camera-near={1}
         shadow-camera-far={30}
         shadow-camera-left={-7}
@@ -47,7 +47,7 @@ export function SceneLights() {
         color={fill.color}
       />
 
-      <Environment resolution={256}>
+      <Environment resolution={128} frames={1}>
         <Lightformer
           intensity={4.6}
           position={[0, 5, -9]}
