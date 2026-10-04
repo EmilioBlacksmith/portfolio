@@ -27,17 +27,18 @@ export async function POST(request: Request) {
   }
 
   const report = await runChecks();
-  const persisted = appendSample(toSample(report));
+  const result = appendSample(toSample(report));
 
   return NextResponse.json(
     {
-      recorded: persisted,
+      recorded: result.ok,
       report,
       store: historyLocation().file,
-      note: persisted
+      error: result.ok ? undefined : { code: result.code, message: result.message },
+      note: result.ok
         ? undefined
-        : "history store not writable — is the Railway volume mounted at the configured path?",
+        : "history store not writable — check the Railway volume mount path and that uid 1001 (nextjs) can write there.",
     },
-    { status: persisted ? 201 : 202 }
+    { status: result.ok ? 201 : 202 }
   );
 }

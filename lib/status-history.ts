@@ -59,7 +59,11 @@ function readHistory(): HistoryFile {
  * Append a sample. Persistence is best-effort: a read-only or missing volume
  * must never break the status page.
  */
-export function appendSample(sample: Sample): boolean {
+export function appendSample(sample: Sample): {
+  ok: boolean;
+  code?: string;
+  message?: string;
+} {
   const history = readHistory();
   history.samples.push(sample);
   history.samples = history.samples.slice(-MAX_SAMPLES);
@@ -71,14 +75,18 @@ export function appendSample(sample: Sample): boolean {
     const tmp = `${HISTORY_FILE}.${process.pid}.tmp`;
     fs.writeFileSync(tmp, JSON.stringify(history));
     fs.renameSync(tmp, HISTORY_FILE);
-    return true;
+    return { ok: true };
   } catch (error) {
-    // Best effort: never throw into a request handler, but make it visible.
+    // Best effort: never throw into a request handler, but surface the cause.
+    const code =
+      error && typeof error === "object" && "code" in error
+        ? String((error as NodeJS.ErrnoException).code)
+        : "UNKNOWN";
+    const message = error instanceof Error ? error.message : String(error);
     console.error(
-      `[status-history] failed to write ${HISTORY_FILE}`,
-      error instanceof Error ? error.message : error
+      `[status-history] write failed (${code}) at ${HISTORY_FILE}: ${message}`
     );
-    return false;
+    return { ok: false, code, message };
   }
 }
 
