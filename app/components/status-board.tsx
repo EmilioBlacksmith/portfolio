@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import type { StatusReport } from "@/lib/status";
+import type { HistoryReport } from "@/lib/status-history";
+import { UptimeBar } from "./uptime-bar";
 
 const REFRESH_MS = 30_000;
 
@@ -21,7 +23,13 @@ function StatusDot({ up }: { up: boolean }) {
   );
 }
 
-export function StatusBoard({ initial }: { initial: StatusReport }) {
+export function StatusBoard({
+  initial,
+  history,
+}: {
+  initial: StatusReport;
+  history: HistoryReport;
+}) {
   const t = useTranslations("status");
   const [report, setReport] = useState(initial);
   const [refreshing, setRefreshing] = useState(false);
@@ -69,6 +77,9 @@ export function StatusBoard({ initial }: { initial: StatusReport }) {
       <ul className="space-y-3">
         {report.services.map((service) => {
           const up = service.status === "up";
+          const serviceHistory = history.services.find(
+            (h) => h.id === service.id
+          );
           return (
             <li key={service.id} className="border border-white/10 bg-panel/50 p-5">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -106,6 +117,12 @@ export function StatusBoard({ initial }: { initial: StatusReport }) {
                   {up ? t("up") : t("down")}
                 </span>
               </div>
+
+              {serviceHistory && (
+                <div className="mt-4 border-t border-white/10 pt-4">
+                  <UptimeBar history={serviceHistory} />
+                </div>
+              )}
             </li>
           );
         })}

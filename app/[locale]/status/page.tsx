@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Header } from "@/app/components/header";
 import { StatusBoard } from "@/app/components/status-board";
-import { runChecks } from "@/lib/status";
+import { runChecks, SERVICES } from "@/lib/status";
+import { getHistory } from "@/lib/status-history";
 import { RSS_ALTERNATES } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -30,6 +31,7 @@ export default async function StatusPage({
   setRequestLocale(locale);
   const t = await getTranslations("status");
   const report = await runChecks();
+  const history = getHistory(SERVICES.map((s) => s.id));
 
   return (
     <main id="main-content" className="min-h-svh pt-16">
@@ -48,7 +50,7 @@ export default async function StatusPage({
           </p>
         </header>
 
-        <StatusBoard initial={report} />
+        <StatusBoard initial={report} history={history} />
       </div>
     </main>
   );

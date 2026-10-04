@@ -46,6 +46,9 @@ yarn-error.log*
 /blog/
 /public/blog/
 
+# status history (Railway volume / local dev)
+/.data/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

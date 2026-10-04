@@ -82,6 +82,13 @@
     "response": "response",
     "lastChecked": "last checked",
     "refreshing": "refreshing…",
-    "autoRefresh": "auto-refresh 30s"
+    "autoRefresh": "auto-refresh 30s",
+    "uptime": "uptime",
+    "avgResponse": "avg",
+    "samples": "samples",
+    "legendUp": "up",
+    "legendPartial": "partial",
+    "legendDown": "down",
+    "legendEmpty": "no data"
   }
 }

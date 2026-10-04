@@ -13,7 +13,9 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check service status
+      - name: Check and record status
+        env:
+          STATUS_CRON_SECRET: ${{ secrets.STATUS_CRON_SECRET }}
         run: |
           body="$(curl -fsS --max-time 30 https://emilioherrera.site/api/status)"
           echo "$body" | jq .
@@ -21,3 +23,16 @@ jobs:
             echo "::error::One or more services are not operational"
             exit 1
           fi
+
+      - name: Record sample to history
+        if: always()
+        env:
+          STATUS_CRON_SECRET: ${{ secrets.STATUS_CRON_SECRET }}
+        run: |
+          if [ -z "$STATUS_CRON_SECRET" ]; then
+            echo "::warning::STATUS_CRON_SECRET is not set; skipping history record."
+            exit 0
+          fi
+          curl -fsS --max-time 30 -X POST \
+            -H "Authorization: Bearer ${STATUS_CRON_SECRET}" \
+            https://emilioherrera.site/api/status/record | jq .
