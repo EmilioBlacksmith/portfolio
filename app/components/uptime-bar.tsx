@@ -24,6 +24,14 @@ function toneFor(bucket: Bucket): string {
   return "text-emerald-400";
 }
 
+/** Color class for an uptime ratio (0–1), or faint when unknown. */
+export function uptimeTone(ratio: number | null): string {
+  if (ratio === null) return "text-faint";
+  if (ratio >= 0.99) return "text-emerald-400";
+  if (ratio >= 0.9) return "text-amber-300";
+  return "text-red-400";
+}
+
 /** UTC time label (HH:MM), for the server-rendered axis fallback. */
 function formatSlotUtc(iso: string): string {
   const d = new Date(iso);
@@ -50,21 +58,6 @@ function useClientTimeZone(): string | null {
 function useLocalFormat() {
   const zone = useClientTimeZone();
 
-  const hour = useCallback(
-    (iso: string): string | null => {
-      if (!zone) return null;
-      const d = new Date(iso);
-      if (Number.isNaN(d.getTime())) return null;
-      return new Intl.DateTimeFormat(undefined, {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-        timeZone: zone,
-      }).format(d);
-    },
-    [zone]
-  );
-
   const stamp = useCallback(
     (iso: string): string | null => {
       if (!zone) return null;
@@ -83,7 +76,7 @@ function useLocalFormat() {
     [zone]
   );
 
-  return { zone, hour, stamp };
+  return { zone, stamp };
 }
 
 function tooltipFor(
@@ -112,39 +105,18 @@ export function UptimeBar({
   const buckets = history.buckets;
   const [active, setActive] = useState<number | null>(null);
   const fmt = useLocalFormat();
-  const first = buckets.length > 0 ? buckets[0].start : null;
-  const last = buckets.length > 0 ? buckets[buckets.length - 1].start : null;
 
   return (
     <div>
-      <div className="flex items-end justify-between gap-3">
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-wider text-faint">
-          <span>
-            {t("uptime")}{" "}
-            <span
-              className={
-                history.uptime === null
-                  ? "text-faint"
-                  : history.uptime >= 0.99
-                    ? "text-emerald-400"
-                    : history.uptime >= 0.9
-                      ? "text-amber-300"
-                      : "text-red-400"
-              }
-            >
-              {history.uptime === null
-                ? "—"
-                : `${(history.uptime * 100).toFixed(1)}%`}
-            </span>
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-wider text-faint">
+        <span>
+          {t("uptime")}{" "}
+          <span className={uptimeTone(history.uptime)}>
+            {history.uptime === null
+              ? "—"
+              : `${(history.uptime * 100).toFixed(1)}%`}
           </span>
-          <span>
-            {t("avgResponse")}{" "}
-            {history.avgResponseMs === null ? "—" : `${history.avgResponseMs} ms`}
-          </span>
-          <span>
-            {t("samples")} {history.samples}
-          </span>
-        </div>
+        </span>
       </div>
 
       <div className="relative mt-3">
@@ -183,21 +155,27 @@ export function UptimeBar({
           </div>
         )}
       </div>
-
-      <div className="mt-2 flex flex-wrap items-center justify-between gap-2 font-mono text-[9px] uppercase tracking-wider text-faint">
-        <span>
-          {first ? (fmt.hour(first) ?? `${formatSlotUtc(first)} UTC`) : ""}
-        </span>
-        <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="text-emerald-400">{GLYPH_UP} {t("legendUp")}</span>
-          <span className="text-amber-300">{GLYPH_PARTIAL} {t("legendPartial")}</span>
-          <span className="text-red-400">{GLYPH_DOWN} {t("legendDown")}</span>
-          <span className="text-white/30">{GLYPH_EMPTY} {t("legendEmpty")}</span>
-        </span>
-        <span>
-          {last ? (fmt.hour(last) ?? `${formatSlotUtc(last)} UTC`) : ""}
-        </span>
-      </div>
     </div>
+  );
+}
+
+/** Shared legend for the ASCII uptime bars. Rendered once, not per service. */
+export function UptimeLegend() {
+  const t = useTranslations("status");
+  return (
+    <span className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[9px] uppercase tracking-wider text-faint">
+      <span className="text-emerald-400">
+        {GLYPH_UP} {t("legendUp")}
+      </span>
+      <span className="text-amber-300">
+        {GLYPH_PARTIAL} {t("legendPartial")}
+      </span>
+      <span className="text-red-400">
+        {GLYPH_DOWN} {t("legendDown")}
+      </span>
+      <span className="text-white/30">
+        {GLYPH_EMPTY} {t("legendEmpty")}
+      </span>
+    </span>
   );
 }
