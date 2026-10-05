@@ -35,6 +35,12 @@ export const SERVICES: Service[] = [
     url: "https://www.daydream-app.com/en",
     checkUrl: "https://api.daydream-app.com/api/health",
   },
+  {
+    id: "finsphera",
+    name: "finsphera.ai",
+    description: "The platform I work on full-time.",
+    url: "https://finsphera.ai",
+  },
 ];
 
 export type CheckResult = {
