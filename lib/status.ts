@@ -22,6 +22,19 @@ export const SERVICES: Service[] = [
     checkUrl: "https://emilioherrera.site/api/health",
     primary: true,
   },
+  {
+    id: "daydream",
+    name: "daydream-app.com",
+    description: "Movie & TV social platform — web app.",
+    url: "https://www.daydream-app.com/en",
+  },
+  {
+    id: "daydream-api",
+    name: "api.daydream-app.com",
+    description: "Daydream API — Rust (Axum) backend.",
+    url: "https://www.daydream-app.com/en",
+    checkUrl: "https://api.daydream-app.com/api/health",
+  },
 ];
 
 export type CheckResult = {
