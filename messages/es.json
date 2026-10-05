@@ -83,7 +83,7 @@
     "lastChecked": "última verificación",
     "refreshing": "actualizando…",
     "liveRefresh": "refresh en vivo 30s",
-    "sampledHourly": "historial muestreado cada hora",
+    "sampledHourly": "historial muestreado cada 15 min",
     "autoRefresh": "auto-refresh 30s",
     "uptime": "disponibilidad",
     "avgResponse": "promedio",

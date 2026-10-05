@@ -24,10 +24,12 @@ function toneFor(bucket: Bucket): string {
   return "text-emerald-400";
 }
 
-/** UTC hour label, for the server-rendered axis. */
-function formatHourUtc(iso: string): string {
+/** UTC time label (HH:MM), for the server-rendered axis fallback. */
+function formatSlotUtc(iso: string): string {
   const d = new Date(iso);
-  return `${String(d.getUTCHours()).padStart(2, "0")}:00`;
+  return `${String(d.getUTCHours()).padStart(2, "0")}:${String(
+    d.getUTCMinutes()
+  ).padStart(2, "0")}`;
 }
 
 const emptySubscribe = () => () => {};
@@ -89,7 +91,7 @@ function tooltipFor(
   fmt: ReturnType<typeof useLocalFormat>
 ): string {
   const when =
-    fmt.stamp(bucket.start) ?? `${formatHourUtc(bucket.start)} UTC`;
+    fmt.stamp(bucket.start) ?? `${formatSlotUtc(bucket.start)} UTC`;
   if (bucket.total === 0 || bucket.ratio === null) {
     return `${when} — no data`;
   }
@@ -184,7 +186,7 @@ export function UptimeBar({
 
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 font-mono text-[9px] uppercase tracking-wider text-faint">
         <span>
-          {first ? (fmt.hour(first) ?? `${formatHourUtc(first)} UTC`) : ""}
+          {first ? (fmt.hour(first) ?? `${formatSlotUtc(first)} UTC`) : ""}
         </span>
         <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span className="text-emerald-400">{GLYPH_UP} {t("legendUp")}</span>
@@ -193,7 +195,7 @@ export function UptimeBar({
           <span className="text-white/30">{GLYPH_EMPTY} {t("legendEmpty")}</span>
         </span>
         <span>
-          {last ? (fmt.hour(last) ?? `${formatHourUtc(last)} UTC`) : ""}
+          {last ? (fmt.hour(last) ?? `${formatSlotUtc(last)} UTC`) : ""}
         </span>
       </div>
     </div>

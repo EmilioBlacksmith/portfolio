@@ -5,10 +5,11 @@ import type { CheckResult, StatusReport } from "./status";
 /**
  * Uptime history persistence.
  *
- * Samples are appended to a JSON file on a persistent volume (Railway mounts
- * one at /data). When no writable data dir is configured — e.g. local dev or a
- * fresh volume — reads return an empty history and the page degrades to a
- * "no data yet" state rather than failing.
+ * Samples are recorded every 15 minutes by the in-process scheduler
+ * (`lib/status-scheduler.ts`) and appended to a JSON file on a persistent
+ * volume (Railway mounts one at /data). When no writable data dir is
+ * configured — e.g. local dev or a fresh volume — reads return an empty history
+ * and the page degrades to a "no data yet" state rather than failing.
  */
 
 const HISTORY_DIR =
@@ -18,10 +19,10 @@ const HISTORY_DIR =
 
 const HISTORY_FILE = path.join(HISTORY_DIR, "status-history.json");
 
-/** Keep ~30 days of hourly samples. */
-const MAX_SAMPLES = 24 * 30;
-/** Buckets shown in the ASCII bar. */
-export const BAR_BUCKETS = 48;
+/** Keep ~30 days of 15-minute samples. */
+const MAX_SAMPLES = 4 * 24 * 30;
+/** Buckets shown in the ASCII bar (one per 15 min → the last 24 h). */
+export const BAR_BUCKETS = 96;
 
 export type Sample = {
   t: string;
@@ -119,7 +120,7 @@ export type HistoryReport = {
   services: ServiceHistory[];
 };
 
-const HOUR_MS = 60 * 60 * 1000;
+const QUARTER_HOUR_MS = 15 * 60 * 1000;
 
 /**
  * Bucket samples into a fixed-width window ending "now". Returns oldest → newest
@@ -128,7 +129,7 @@ const HOUR_MS = 60 * 60 * 1000;
 export function getHistory(
   serviceIds: string[],
   buckets = BAR_BUCKETS,
-  bucketMs = HOUR_MS,
+  bucketMs = QUARTER_HOUR_MS,
   now = Date.now()
 ): HistoryReport {
   const history = readHistory();

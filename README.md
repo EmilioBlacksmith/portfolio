@@ -272,9 +272,12 @@ If the token is missing, the build now stops with an explicit
   so the framework header isn't exposed.
 - **Status page** — `/status` checks the services listed in `lib/status.ts`
   live (server-side, 5s timeout) and refreshes every 30s; `/api/status` returns
-  the JSON report. `.github/workflows/status-check.yml` polls it hourly and
-  fails the workflow (→ GitHub notification) when any service is down. Add
-  services to `SERVICES` in `lib/status.ts`.
+  the JSON report. An in-process scheduler (`instrumentation.ts` →
+  `lib/status-scheduler.ts`) records a history sample every 15 minutes onto the
+  persistent volume, so the uptime bar shows the last 24 h in 15-minute buckets.
+  There is no alerting. `POST /api/status/record` remains available (bearer
+  `STATUS_CRON_SECRET`) for manual backfill. Add services to `SERVICES` in
+  `lib/status.ts`.
 - **Health check** — `GET /api/health` returns `{ "status": "ok" }` with
   `no-store`. Point Railway's healthcheck at it (service Settings → Deploy →
   Healthcheck Path → `/api/health`) so a broken deploy is caught before traffic.
